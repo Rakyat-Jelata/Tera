@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 // Inisialisasi API Key dari Environment Variable
 const apiKey = process.env.GEMINI_API_KEY;
