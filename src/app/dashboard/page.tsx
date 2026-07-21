@@ -1,171 +1,131 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '../../lib/supabase';
+import { supabase, uploadPropertyImage } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 
-export default function DashboardPage() {
+export default function AddPropertyPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [generating, setGenerating] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    propertyType: 'Rumah',
-    transactionType: 'Jual',
-    price: '',
-    bedroom: 2,
-    bathroom: 1,
-    landSize: 60,
-    buildingSize: 45,
-    regencyName: '',
-    provinceName: '',
-    description: '',
-  });
+  
+  // State Form
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState('');
+  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
-  // Function untuk panggil AI Backend Route
-  const handleGenerateAI = async () => {
-    if (!formData.title) {
-      alert('Isi minimal Judul Properti terlebih dahulu!');
-      return;
-    }
-
-    setGenerating(true);
-    try {
-      const res = await fetch('/api/generate-ai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(`Gagal AI: ${data.error || 'Terjadi kesalahan sistem'}`);
-        return;
-      }
-
-      if (data.description) {
-        setFormData((prev) => ({ ...prev, description: data.description }));
-      }
-    } catch (err: any) {
-      alert(`Error Koneksi: ${err.message}`);
-    } finally {
-      setGenerating(false);
-    }
-  };
-
-  // Function Simpan Listing ke Supabase
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!imageFile) return alert('Pilih foto properti terlebih dahulu!');
+
     setLoading(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      // 1. Upload Foto ke Supabase Storage
+      const imageUrl = await uploadPropertyImage(imageFile);
 
-      if (!user) {
-        alert('Sesi login berakhir. Silakan login kembali.');
+      if (!imageUrl) {
+        alert('Gagal mengunggah foto!');
+        setLoading(false);
         return;
       }
 
-      const { error } = await supabase.from('properties').insert([
+      // 2. Simpan Data Properti ke Database Supabase
+      const { data, error } = await supabase.from('properties').insert([
         {
-          user_id: user.id,
-          title: formData.title,
-          property_type: formData.propertyType,
-          transaction_type: formData.transactionType,
-          price: Number(formData.price),
-          bedroom: Number(formData.bedroom),
-          bathroom: Number(formData.bathroom),
-          land_size: Number(formData.landSize),
-          building_size: Number(formData.buildingSize),
-          description: formData.description,
+          title,
+          price: Number(price),
+          location,
+          description,
+          image_url: imageUrl, // URL dari Supabase Storage
         },
       ]);
 
       if (error) throw error;
 
-      alert('🎉 Listing properti berhasil diterbitkan!');
-    } catch (error: any) {
-      alert(`Gagal menyimpan: ${error.message}`);
+      alert('Properti berhasil ditambahkan!');
+      router.push('/dashboard'); // Redirect ke dashboard utama
+    } catch (err: any) {
+      console.error(err);
+      alert('Error: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-4 md:p-8">
-      <div className="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-        <h1 className="text-2xl font-bold mb-2">Dashboard Agen TERAVIA</h1>
-        <p className="text-slate-400 text-sm mb-6">Tambah Listing & Operasikan AI Marketing Engine</p>
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-md my-8">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">Tambah Properti Baru</h1>
+      
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Judul Properti</label>
+          <input
+            type="text"
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Rumah Minimalis Modern"
+          />
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Judul Properti</label>
+            <label className="block text-sm font-medium text-gray-700">Harga (Rp)</label>
+            <input
+              type="number"
+              required
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+              placeholder="750000000"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Lokasi</label>
             <input
               type="text"
               required
-              placeholder="Contoh: Rumah Minimalis Modern BSD City"
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg"
+              placeholder="Jakarta Selatan"
             />
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Tipe</label>
-              <select
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white"
-                value={formData.propertyType}
-                onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-              >
-                <option value="Rumah">Rumah</option>
-                <option value="Apartemen">Apartemen</option>
-                <option value="Ruko">Ruko</option>
-                <option value="Tanah">Tanah</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Harga (Rp)</label>
-              <input
-                type="number"
-                required
-                placeholder="1500000000"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              />
-            </div>
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Deskripsi</label>
+          <textarea
+            rows={3}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-lg"
+            placeholder="Keterangan singkat properti..."
+          />
+        </div>
 
-          <div>
-            <div className="flex justify-between items-center mb-1">
-              <label className="text-sm font-medium">Deskripsi Pemasaran</label>
-              <button
-                type="button"
-                onClick={handleGenerateAI}
-                disabled={generating}
-                className="text-xs bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-lg text-white font-medium transition disabled:opacity-50"
-              >
-                {generating ? '✨ AI Menulis...' : '✨ Generate Deskripsi AI'}
-              </button>
-            </div>
-            <textarea
-              rows={6}
-              placeholder="Klik tombol 'Generate Deskripsi AI' di atas untuk membuat deskripsi otomatis..."
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-indigo-500"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            ></textarea>
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Foto Utama</label>
+          <input
+            type="file"
+            accept="image/*"
+            required
+            onChange={(e) => e.target.files?.[0] && setImageFile(e.target.files[0])}
+            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+          />
+        </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3.5 rounded-xl transition shadow-lg shadow-indigo-500/20 disabled:opacity-50"
-          >
-            {loading ? 'Menyimpan...' : 'Terbitkan Listing Properti'}
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-200 disabled:opacity-50"
+        >
+          {loading ? 'Mengunggah & Menyimpan...' : 'Simpan Properti'}
+        </button>
+      </form>
     </div>
   );
-}
+        }
