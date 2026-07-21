@@ -26,9 +26,8 @@ Format Output:
 3. Call to Action (Ajak calon pembeli untuk hubungi agen)
     `;
 
-    // Menggunakan endpoint REST API Gemini yang standar
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
