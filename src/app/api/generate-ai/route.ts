@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: 'GEMINI_API_KEY belum dikonfigurasi di Vercel' }, { status: 500 });
+      return NextResponse.json({ error: 'GEMINI_API_KEY belum terpasang di Environment Variables Vercel.' }, { status: 500 });
     }
 
     const prompt = `
@@ -16,9 +16,9 @@ Buatkan deskripsi penjualan properti yang sangat menarik, persuasif, dan rapi un
 
 - Judul: ${title}
 - Jenis Properti: ${propertyType} (${transactionType})
-- Harga: Rp ${Number(price).toLocaleString('id-ID')}
-- Lokasi: ${regencyName}, ${provinceName}
-- Spesifikasi: ${bedroom} Kamar Tidur, ${bathroom} Kamar Mandi, Luas Tanah ${landSize} m², Luas Bangunan ${buildingSize} m²
+- Harga: Rp ${Number(price || 0).toLocaleString('id-ID')}
+- Lokasi: ${regencyName || 'Indonesia'}, ${provinceName || ''}
+- Spesifikasi: ${bedroom || 0} Kamar Tidur, ${bathroom || 0} Kamar Mandi, Luas Tanah ${landSize || 0} m², Luas Bangunan ${buildingSize || 0} m²
 
 Format Output:
 1. Headline Hook (1 kalimat mencolok)
@@ -26,13 +26,18 @@ Format Output:
 3. Call to Action (Ajak calon pembeli untuk hubungi agen)
     `;
 
+    // Memanggil API Gemini 1.5 Flash
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          contents: [
+            {
+              parts: [{ text: prompt }]
+            }
+          ]
         }),
       }
     );
@@ -40,16 +45,22 @@ Format Output:
     const data = await response.json();
 
     if (!response.ok) {
-      return NextResponse.json({ error: data.error?.message || 'Error dari Google Gemini API' }, { status: response.status });
+      const errorMsg = data.error?.message || 'Terjadi kesalahan pada server Gemini API.';
+      return NextResponse.json({ error: `[Gemini Error ${response.status}] ${errorMsg}` }, { status: response.status });
     }
 
+    // Pengecekan teks hasil generate dari struktur response Gemini
     const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
     if (!generatedText) {
-      return NextResponse.json({ error: 'Respon AI kosong' }, { status: 500 });
+      return NextResponse.json({ 
+        error: 'AI memproses permintaan, tetapi tidak mengembalikan teks deskripsi. Coba ubah detail properti.' 
+      }, { status: 500 });
     }
 
     return NextResponse.json({ description: generatedText });
+
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }
