@@ -1,15 +1,25 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+// Inisialisasi API Key dari Environment Variable
+const apiKey = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey || '');
 
 export async function POST(req: Request) {
   try {
+    // Validasi jika API Key tidak ditemukan di .env / Vercel Vars
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'GEMINI_API_KEY belum terpasang di Environment Variables' },
+        { status: 500 }
+      );
+    }
+
     const body = await req.json();
     const { title, propertyType, price, bedroom, bathroom } = body;
 
-    // Menggunakan model Gemini terbaru
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    // Gunakan model resmi: gemini-1.5-flash
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `Buatkan deskripsi pemasaran properti yang menarik dan profesional untuk agen real estate. 
     Detail Properti:
@@ -27,6 +37,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ description });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Error Gemini API:', error);
+    return NextResponse.json(
+      { error: error.message || 'Gagal menghasilkan deskripsi AI' },
+      { status: 500 }
+    );
   }
 }
