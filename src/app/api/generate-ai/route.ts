@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: 'GEMINI_API_KEY belum dikonfigurasi di .env.local' }, { status: 500 });
+      return NextResponse.json({ error: 'GEMINI_API_KEY belum dikonfigurasi di Vercel' }, { status: 500 });
     }
 
     const prompt = `
@@ -26,8 +26,9 @@ Format Output:
 3. Call to Action (Ajak calon pembeli untuk hubungi agen)
     `;
 
+    // Menggunakan endpoint REST API Gemini yang standar
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -38,7 +39,15 @@ Format Output:
     );
 
     const data = await response.json();
-    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Gagal menghasilkan deskripsi.';
+
+    if (!response.ok) {
+      return NextResponse.json({ error: data.error?.message || 'Error dari Google Gemini API' }, { status: response.status });
+    }
+
+    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!generatedText) {
+      return NextResponse.json({ error: 'Respon AI kosong' }, { status: 500 });
+    }
 
     return NextResponse.json({ description: generatedText });
   } catch (error: any) {
