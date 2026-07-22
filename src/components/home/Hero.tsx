@@ -49,37 +49,34 @@ export default function Hero() {
 
           <nav className="hidden lg:flex items-center gap-10 font-medium text-slate-700">
 
-            <Link
-              href="/"
-              className="text-white transition hover:text-cyan-400"
+            <Link href="/"
+              className="text-slate-700 transition hover:text-cyan-600"
             >
               Beranda
             </Link>
 
             <Link
               href="/property"
-              className="text-white transition hover:text-cyan-400       >
+              className="text-slate-700 transition hover:text-cyan-600">
               Properti
             </Link>
 
             <Link
               href="/blog"
-              className="text-white transition hover:text-cyan-400"
-            >
+              className="text-slate-700 transition hover:text-cyan-600"></Link>
+            
               Blog
             </Link>
 
             <Link
               href="/membership"
-              className="text-white transition hover:text-cyan-400"
-            >
+              className="text-slate-700 transition hover:text-cyan-600">
               Membership
             </Link>
 
             <Link
               href="/about"
-              className="text-white transition hover:text-cyan-400"
-            >
+              className="text-slate-700 transition hover:text-cyan-600">
               Tentang
             </Link>
 
@@ -89,8 +86,7 @@ export default function Hero() {
 
             <Link
               href="/login"
-              className="rounded-xl border border-white/20 px-5 py-2 font-medium text-white transition hover:bg-white/10"
-            >
+              className="rounded-xl border border-slate-300 px-5 py-2 font-medium text-slate-700 transition hover:bg-slate-100"
               Masuk
             </Link>
 
