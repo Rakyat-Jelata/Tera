@@ -1,5 +1,4 @@
 import Link from "next/link";
-import PropertyGrid from "@/components/property/PropertyGrid";
 
 const featuredProperties = [
   {
@@ -70,7 +69,7 @@ export default function FeaturedProperties() {
 
         </div>
 
-        <PropertyGrid properties={featuredProperties} />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
           {featuredProperties.map((item) => (
 
