@@ -160,53 +160,68 @@ export default function Hero() {
           </div>
 
           {/* CTA SECTION */}
-<div className="hero-actions">
+<div className="mt-8 flex flex-wrap gap-4">
 
-  <a 
-    href="/pages/pasang-iklan.html" 
-    className="btn btn-primary"
+  <Link
+    href="/pasang-iklan"
+    className="rounded-xl bg-cyan-600 px-7 py-3 font-semibold text-white transition hover:bg-cyan-700"
   >
     Pasang Properti Sekarang
-  </a>
+  </Link>
 
-  <a 
-    href="/pages/property.html" 
-    className="btn btn-outline"
+
+  <Link
+    href="/property"
+    className="rounded-xl border border-white/20 px-7 py-3 font-semibold text-white transition hover:bg-white/10"
   >
     Cari Properti
-  </a>
+  </Link>
 
 </div>
 
 
 {/* STATISTIC SECTION */}
-<div className="hero-statistics">
+<div className="mt-12 flex flex-wrap gap-10">
 
-  <div className="stat-item">
-    <h3>34+</h3>
-    <p>Provinsi Terhubung</p>
+  <div>
+    <h3 className="text-3xl font-black text-white">
+      34+
+    </h3>
+    <p className="text-slate-400">
+      Provinsi Terhubung
+    </p>
   </div>
 
-  <div className="stat-item">
-    <h3>500+</h3>
-    <p>Listing Properti</p>
+
+  <div>
+    <h3 className="text-3xl font-black text-white">
+      500+
+    </h3>
+    <p className="text-slate-400">
+      Listing Properti
+    </p>
   </div>
 
-  <div className="stat-item">
-    <h3>100+</h3>
-    <p>Member Profesional</p>
+
+  <div>
+    <h3 className="text-3xl font-black text-white">
+      100+
+    </h3>
+    <p className="text-slate-400">
+      Member Profesional
+    </p>
   </div>
 
 </div>
 
 
 {/* HERO CLOSING */}
-<div className="hero-footer">
+<div className="mt-10 max-w-xl">
 
-  <p>
-    TERAVIA membantu pemilik properti, agen, broker,
-    dan pencari properti menemukan peluang terbaik
-    di seluruh Indonesia.
-  </p>
+<p className="leading-7 text-slate-400">
+TERAVIA membantu pemilik properti,
+agen, broker, dan pencari properti
+menemukan peluang terbaik di seluruh Indonesia.
+</p>
 
 </div>
