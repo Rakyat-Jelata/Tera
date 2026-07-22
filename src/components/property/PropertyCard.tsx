@@ -98,7 +98,7 @@ export default function PropertyCard({
         <div className="mt-8 flex gap-3">
 
   <Link
-    href={`/property/${id}`}
+    href={`/properties/${id}`}
     className="flex-1 rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
   >
     Lihat Detail
