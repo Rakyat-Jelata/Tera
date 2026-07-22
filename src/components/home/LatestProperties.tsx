@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PropertyGrid from "@/components/property/PropertyGrid";
 
 const latestProperties = [
   {
@@ -72,7 +73,7 @@ export default function LatestProperties() {
 
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <PropertyGrid properties={latestProperties} />
 
           {latestProperties.map((property) => (
 
