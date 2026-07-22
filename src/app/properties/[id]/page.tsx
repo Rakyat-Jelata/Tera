@@ -3,6 +3,7 @@ import PropertyGallery from "@/components/property/PropertyGallery";
 import PropertySummary from "@/components/property/PropertySummary";
 import PropertySpecification from "@/components/property/PropertySpecification";
 import PropertyDescription from "@/components/property/PropertyDescription";
+import PropertyAgentCard from "@/components/property/PropertyAgentCard";
 
 const properties = [
   {
@@ -77,20 +78,31 @@ export default async function PropertyDetailPage({
 
         <PropertyGallery />
 
-  <PropertySummary price={property.price} />
-
-        <PropertySpecification
-  bedroom={property.bedroom}
-  bathroom={property.bathroom}
-  land={property.land}
-  building={property.building}
-/>
-        <PropertyDescription
-  description={property.description}
+  <PropertySummary
+  price={property.price}
 />
 
-      </div>
+<div className="mt-8 grid gap-8 lg:grid-cols-[2fr_380px]">
 
-    </main>
+  <div>
+
+    <PropertySpecification
+      bedroom={property.bedroom}
+      bathroom={property.bathroom}
+      land={property.land}
+      building={property.building}
+    />
+
+    <PropertyDescription
+      description={property.description}
+    />
+
+  </div>
+
+  <PropertyAgentCard />
+
+</div>
+</div>
+</main>
   );
 }
