@@ -2,6 +2,7 @@ import Link from "next/link";
 import PropertyGallery from "@/components/property/PropertyGallery";
 import PropertySummary from "@/components/property/PropertySummary";
 import PropertySpecification from "@/components/property/PropertySpecification";
+import PropertyDescription from "@/components/property/PropertyDescription";
 
 const properties = [
   {
@@ -76,10 +77,7 @@ export default async function PropertyDetailPage({
 
         <PropertyGallery />
 
-
-        <div className="mt-8">
   <PropertySummary price={property.price} />
-</div>
 
         <PropertySpecification
   bedroom={property.bedroom}
@@ -87,32 +85,9 @@ export default async function PropertyDetailPage({
   land={property.land}
   building={property.building}
 />
-<div className="mt-8 overflow-hidden rounded-3xl bg-white shadow">
-
-  <div className="p-8">
-
-
-            <div className="border-t pt-6">
-
-              <h3 className="text-2xl font-bold text-slate-900">
-                Deskripsi
-              </h3>
-
-              <p className="mt-3 text-slate-600">
-                {property.description}
-              </p>
-
-            </div>
-
-
-            <button className="mt-8 rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white hover:bg-cyan-700">
-              Hubungi Agen
-            </button>
-
-
-          </div>
-
-        </div>
+        <PropertyDescription
+  description={property.description}
+/>
 
       </div>
 
