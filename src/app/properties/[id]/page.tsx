@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PropertyGallery from "@/components/property/PropertyGallery";
 import PropertySummary from "@/components/property/PropertySummary";
+import PropertySpecification from "@/components/property/PropertySpecification";
 
 const properties = [
   {
@@ -80,37 +81,18 @@ export default async function PropertyDetailPage({
   <PropertySummary price={property.price} />
 </div>
 
+        <PropertySpecification
+  bedroom={property.bedroom}
+  bathroom={property.bathroom}
+  land={property.land}
+  building={property.building}
+/>
 <div className="mt-8 overflow-hidden rounded-3xl bg-white shadow">
 
   <div className="p-8">
 
-    <h2 className="text-3xl font-extrabold text-cyan-600">
-      {property.price}
-    </h2>
 
-
-            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-
-              <div className="rounded-xl bg-slate-100 p-4">
-                🛏 {property.bedroom} Kamar
-              </div>
-
-              <div className="rounded-xl bg-slate-100 p-4">
-                🚿 {property.bathroom} Kamar Mandi
-              </div>
-
-              <div className="rounded-xl bg-slate-100 p-4">
-                🌳 {property.land} m² Tanah
-              </div>
-
-              <div className="rounded-xl bg-slate-100 p-4">
-                🏠 {property.building} m² Bangunan
-              </div>
-
-            </div>
-
-
-            <div className="mt-8 border-t pt-6">
+            <div className="border-t pt-6">
 
               <h3 className="text-2xl font-bold text-slate-900">
                 Deskripsi
