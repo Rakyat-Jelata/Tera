@@ -35,7 +35,7 @@ export default function PropertyCard({
 
       {/* Image */}
 
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-64 overflow-hidden rounded-t-3xl">
 
         <Image
           src={image}
@@ -66,9 +66,25 @@ export default function PropertyCard({
           📍 {location}
         </p>
 
-        <h4 className="mt-5 text-3xl font-extrabold text-cyan-600">
-          {price}
-        </h4>
+        <div className="mt-5 flex items-center justify-between">
+
+  <div>
+
+    <p className="text-xs uppercase tracking-wide text-slate-500">
+      Harga
+    </p>
+
+    <h4 className="text-3xl font-extrabold text-cyan-600">
+      {price}
+    </h4>
+
+  </div>
+
+  <div className="rounded-full bg-cyan-50 px-3 py-1 text-sm font-semibold text-cyan-700">
+    Siap Huni
+  </div>
+
+</div>
 
         <div className="my-6 border-t border-slate-200"></div>
 
@@ -79,12 +95,28 @@ export default function PropertyCard({
           building={building}
         />
 
-        <Link
-          href={`/property/${id}`}
-          className="mt-8 block rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Lihat Detail
-        </Link>
+        <div className="mt-8 flex gap-3">
+
+  <Link
+    href={`/property/${id}`}
+    className="flex-1 rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
+  >
+    Lihat Detail
+  </Link>
+
+  <button
+    className="rounded-2xl border border-slate-300 px-5 transition hover:bg-slate-100"
+  >
+    📞
+  </button>
+
+  <button
+    className="rounded-2xl border border-slate-300 px-5 transition hover:bg-slate-100"
+  >
+    💬
+  </button>
+
+</div>
 
       </div>
 
