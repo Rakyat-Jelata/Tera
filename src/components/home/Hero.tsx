@@ -225,3 +225,10 @@ menemukan peluang terbaik di seluruh Indonesia.
 </p>
 
 </div>
+        </div>
+
+      </div>
+
+    </section>
+  );
+}
