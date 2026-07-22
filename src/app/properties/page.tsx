@@ -15,7 +15,7 @@ const properties = [
     bathroom: 2,
     land: 120,
     building: 90,
-    badge: "Featured",
+    badge: "featured",
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const properties = [
     bathroom: 3,
     land: 300,
     building: 220,
-    badge: "Hot",
+    badge: "hot",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const properties = [
     bathroom: 2,
     land: 90,
     building: 90,
-    badge: "New",
+    badge: "new",
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ const properties = [
     bathroom: 2,
     land: 100,
     building: 180,
-    badge: "Premium",
+    badge: "premium",
   },
 ];
 
@@ -96,4 +96,4 @@ export default function PropertiesPage() {
 
     </main>
   );
-    }
+}
