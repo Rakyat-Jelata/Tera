@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+ 
 const featuredProperties = [
   {
     id: 1,
