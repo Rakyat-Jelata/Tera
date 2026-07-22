@@ -12,13 +12,8 @@ export default function Hero() {
 
       <div className="absolute inset-0">
 
-        <Image
-          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2000&auto=format&fit=crop"
-          alt="TERAVIA"
-          fill
-          priority
-          className="object-cover"
-        />
+        <Image src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2000&auto=format&fit=crop"
+          alt="TERAVIA" fill priority className="object-cover" />
 
         <div className="absolute inset-0 bg-slate-950/70"></div>
 
