@@ -12,13 +12,19 @@ export default function Hero() {
 
       <div className="absolute inset-0">
 
-        src="/images/hero-bg.png"
+  <Image
+    src="/images/hero-bg.png"
+    alt="TERAVIA"
+    fill
+    priority
+    className="object-cover"
+  />
 
-        <div className="absolute inset-0 bg-slate-950/70"></div>
+  <div className="absolute inset-0 bg-slate-950/70"></div>
 
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent"></div>
+  <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent"></div>
 
-      </div>
+</div>
 
       {/* Navbar */}
 
