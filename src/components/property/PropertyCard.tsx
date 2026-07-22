@@ -31,7 +31,7 @@ export default function PropertyCard({
   badge = "sale",
 }: PropertyCardProps) {
   return (
-    <div className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+    <div className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-2xl">
 
       {/* Image */}
 
