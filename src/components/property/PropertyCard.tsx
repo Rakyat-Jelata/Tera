@@ -98,7 +98,7 @@ export default function PropertyCard({
           building={building}
         />
 
-        <div className="mt-8 flex gap-3">
+        <div className="mt-6 flex gap-2">
 
         <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-5">
 
@@ -125,15 +125,17 @@ export default function PropertyCard({
     Lihat Detail
   </Link>
 
-  <div className="mt-6 flex gap-2">
-    📞
-  </button>
-
   <button
-    className="rounded-2xl border border-slate-300 px-5 transition hover:bg-slate-100"
-  >
-    💬
-  </button>
+  className="rounded-2xl border border-cyan-300 bg-cyan-50 px-5 transition hover:bg-cyan-100"
+>
+  📞
+</button>
+
+<button
+  className="rounded-2xl border border-green-300 bg-green-50 px-5 transition hover:bg-green-100"
+>
+  💬
+</button>
 
 </div>
 
