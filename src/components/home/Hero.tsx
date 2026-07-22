@@ -28,9 +28,9 @@ export default function Hero() {
 
       {/* Navbar */}
 
-      <header className="relative z-30">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
 
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
 
           <Link
             href="/"
@@ -40,8 +40,8 @@ export default function Hero() {
             <Image
               src="/images/logo-teravia.svg"
               alt="TERAVIA"
-              width={180}
-              height={45}
+              width={220}
+              height={60}
               priority
             />
 
