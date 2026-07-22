@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Hero from "@/components/home/Hero";
-import Hero from "@/components/home/Hero";
 import Categories from "@/components/home/Categories";
 import FeaturedProperties from "@/components/home/FeaturedProperties";
 import LatestProperties from "@/components/home/LatestProperties";
@@ -71,7 +70,7 @@ export default function HomePage() {
 
 </main>
 
-      <footer />
+      <Footer />
 
     </div>
   );
