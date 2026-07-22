@@ -15,6 +15,16 @@ export default function RootLayout({
     <html lang="id">
       <body className="bg-slate-950 text-white font-sans antialiased">
         {children}
+
+        <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+
+<script
+  dangerouslySetInnerHTML={{
+    __html: `
+      eruda.init();
+    `,
+  }}
+/>
       </body>
     </html>
   );
