@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PropertyGallery from "@/components/property/PropertyGallery";
 
 const properties = [
   {
@@ -71,26 +72,18 @@ export default async function PropertyDetailPage({
           ← Kembali ke Listing
         </Link>
 
-
-        <div className="overflow-hidden rounded-3xl bg-white shadow">
-
-          <img
-            src={property.image}
-            alt={property.title}
-            className="h-[450px] w-full object-cover"
-          />
+        <PropertyGallery />
 
 
-          <div className="p-8">
+        <PropertyGallery />
 
-            <h1 className="text-4xl font-bold text-slate-900">
-              {property.title}
-            </h1>
+<div className="mt-8 overflow-hidden rounded-3xl bg-white shadow">
 
+  <div className="p-8">
 
-            <p className="mt-3 text-slate-500">
-              📍 {property.location}
-            </p>
+    <h2 className="text-3xl font-extrabold text-cyan-600">
+      {property.price}
+    </h2>
 
 
             <h2 className="mt-6 text-3xl font-extrabold text-cyan-600">
