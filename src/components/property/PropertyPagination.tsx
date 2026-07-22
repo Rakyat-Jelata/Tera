@@ -1,45 +1,52 @@
-"use client";
-
-type PropertyPaginationProps = {
+interface PropertyPaginationProps {
   currentPage: number;
   totalPages: number;
-};
+}
 
 export default function PropertyPagination({
   currentPage,
   totalPages,
 }: PropertyPaginationProps) {
   return (
-    <div className="mt-10 flex items-center justify-center gap-2">
+    <div className="mt-12 flex flex-col items-center gap-5">
 
-      <button
-        className="rounded-xl border border-slate-300 px-4 py-2 transition hover:bg-slate-100"
-      >
-        ←
-      </button>
+      <p className="text-sm text-slate-500">
+        Halaman <span className="font-semibold">{currentPage}</span> dari{" "}
+        <span className="font-semibold">{totalPages}</span>
+      </p>
 
-      {Array.from({ length: totalPages }).map((_, index) => {
-        const page = index + 1;
+      <div className="flex flex-wrap items-center justify-center gap-2">
 
-        return (
-          <button
-            key={page}
-            className={`rounded-xl px-4 py-2 font-semibold transition ${
-              currentPage === page
-                ? "bg-cyan-600 text-white"
-                : "border border-slate-300 hover:bg-slate-100"
-            }`}
-          >
-            {page}
-          </button>
-        );
-      })}
+        <button
+          className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-700 transition hover:bg-slate-100"
+        >
+          ← Sebelumnya
+        </button>
 
-      <button
-        className="rounded-xl border border-slate-300 px-4 py-2 transition hover:bg-slate-100"
-      >
-        →
-      </button>
+        {Array.from({ length: totalPages }, (_, i) => {
+          const page = i + 1;
+
+          return (
+            <button
+              key={page}
+              className={`h-11 w-11 rounded-xl font-semibold transition ${
+                page === currentPage
+                  ? "bg-cyan-600 text-white shadow-lg"
+                  : "border border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              {page}
+            </button>
+          );
+        })}
+
+        <button
+          className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-700 transition hover:bg-slate-100"
+        >
+          Selanjutnya →
+        </button>
+
+      </div>
 
     </div>
   );
