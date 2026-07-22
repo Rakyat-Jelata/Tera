@@ -38,7 +38,7 @@ export default function Hero() {
           >
 
             <Image
-              src="/images/logo-teravia.svg"
+              src="/images/logo.svg"
               alt="TERAVIA"
               width={220}
               height={60}
@@ -62,11 +62,11 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/blog"
-              className="text-slate-700 transition hover:text-cyan-600"></Link>
-            
-              Blog
-            </Link>
+  href="/blog"
+  className="text-slate-700 transition hover:text-cyan-600"
+>
+  Blog
+</Link>
 
             <Link
               href="/membership"
@@ -85,10 +85,11 @@ export default function Hero() {
           <div className="hidden lg:flex items-center gap-4">
 
             <Link
-              href="/login"
-              className="rounded-xl border border-slate-300 px-5 py-2 font-medium text-slate-700 transition hover:bg-slate-100"
-              Masuk
-            </Link>
+  href="/login"
+  className="rounded-xl border border-slate-300 px-5 py-2 font-medium text-slate-700 transition hover:bg-slate-100"
+>
+  Masuk
+</Link>
 
             <Link
               href="/register"
