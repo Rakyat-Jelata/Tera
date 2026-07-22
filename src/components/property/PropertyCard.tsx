@@ -118,6 +118,8 @@ export default function PropertyCard({
 
 </div>
 
+</div>
+
   <Link
     href={`/properties/${id}`}
     className="flex-1 rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
