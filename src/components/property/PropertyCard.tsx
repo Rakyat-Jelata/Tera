@@ -98,8 +98,6 @@ export default function PropertyCard({
           building={building}
         />
 
-        <div className="mt-6 flex gap-2">
-
         <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-5">
 
   <div>
