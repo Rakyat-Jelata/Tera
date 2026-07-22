@@ -1,5 +1,4 @@
 import Link from "next/link";
-import PropertyGrid from "@/components/property/PropertyGrid";
 
 const latestProperties = [
   {
@@ -73,61 +72,62 @@ export default function LatestProperties() {
 
         </div>
 
-        <PropertyGrid properties={latestProperties} />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
 
-          {latestProperties.map((property) => (
+  {latestProperties.map((property) => (
 
-            <Link
-              key={property.id}
-              href={`/property/${property.id}`}
-              className="group overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
-            >
+    <Link
+      key={property.id}
+      href={`/property/${property.id}`}
+      className="group overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+    >
 
-              <div className="relative">
+      <div className="relative">
 
-                <img
-                  src={property.image}
-                  alt={property.title}
-                  className="h-56 w-full object-cover transition duration-300 group-hover:scale-105"
-                />
+        <img
+          src={property.image}
+          alt={property.title}
+          className="h-56 w-full object-cover transition duration-300 group-hover:scale-105"
+        />
 
-                <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-xs font-semibold shadow">
-                  {property.type}
-                </span>
+        <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-xs font-semibold shadow">
+          {property.type}
+        </span>
 
-              </div>
+      </div>
 
-              <div className="p-5">
 
-                <h3 className="line-clamp-2 text-lg font-bold text-slate-900">
-                  {property.title}
-                </h3>
+      <div className="p-5">
 
-                <p className="mt-2 text-sm text-slate-500">
-                  📍 {property.location}
-                </p>
+        <h3 className="line-clamp-2 text-lg font-bold text-slate-900">
+          {property.title}
+        </h3>
 
-                <p className="mt-4 text-2xl font-bold text-cyan-600">
-                  {property.price}
-                </p>
+        <p className="mt-2 text-sm text-slate-500">
+          📍 {property.location}
+        </p>
 
-                <div className="mt-5 flex items-center justify-between text-sm text-slate-500">
+        <p className="mt-4 text-2xl font-bold text-cyan-600">
+          {property.price}
+        </p>
 
-                  <span>{property.date}</span>
+        <div className="mt-5 flex items-center justify-between text-sm text-slate-500">
 
-                  <span className="font-semibold text-cyan-600">
-                    Detail →
-                  </span>
+          <span>{property.date}</span>
 
-                </div>
-
-              </div>
-
-            </Link>
-
-          ))}
+          <span className="font-semibold text-cyan-600">
+            Detail →
+          </span>
 
         </div>
+
+      </div>
+
+    </Link>
+
+  ))}
+
+</div>
 
       </div>
 
