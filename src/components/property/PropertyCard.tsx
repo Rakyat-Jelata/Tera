@@ -35,7 +35,7 @@ export default function PropertyCard({
 
       {/* Image */}
 
-      <div className="relative h-64 overflow-hidden rounded-t-3xl">
+      <div className="relative h-72 overflow-hidden rounded-t-3xl">
 
         <Image
           src={image}
@@ -43,11 +43,14 @@ export default function PropertyCard({
           fill
           className="object-cover transition duration-500 group-hover:scale-110"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
         <div className="absolute left-4 top-4">
           <PropertyBadge type={badge} />
         </div>
-
+        <div className="absolute left-4 bottom-4 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
+  ✓ Verified
+</div>
         <div className="absolute right-4 top-4">
           <FavoriteButton />
         </div>
@@ -74,7 +77,7 @@ export default function PropertyCard({
       Harga
     </p>
 
-    <h4 className="text-3xl font-extrabold text-cyan-600">
+    <h4 className="text-2xl font-extrabold text-cyan-600 md:text-3xl">
       {price}
     </h4>
 
@@ -97,6 +100,24 @@ export default function PropertyCard({
 
         <div className="mt-8 flex gap-3">
 
+        <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-5">
+
+  <div>
+    <p className="text-sm font-semibold text-slate-800">
+      Budi Santoso
+    </p>
+
+    <p className="text-xs text-slate-500">
+      BrokerID #TRA001 • 2 jam lalu
+    </p>
+  </div>
+
+  <div className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold text-cyan-700">
+    TERAVIA
+  </div>
+
+</div>
+
   <Link
     href={`/properties/${id}`}
     className="flex-1 rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
@@ -104,9 +125,7 @@ export default function PropertyCard({
     Lihat Detail
   </Link>
 
-  <button
-    className="rounded-2xl border border-slate-300 px-5 transition hover:bg-slate-100"
-  >
+  <div className="mt-6 flex gap-2">
     📞
   </button>
 
