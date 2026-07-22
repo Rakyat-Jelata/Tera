@@ -4,7 +4,20 @@ import PropertyToolbar from "@/components/property/PropertyToolbar";
 import PropertyGrid from "@/components/property/PropertyGrid";
 import PropertyPagination from "@/components/property/PropertyPagination";
 
-const properties = [
+type Property = {
+  id: number | string;
+  title: string;
+  location: string;
+  price: string;
+  image: string;
+  bedroom: number;
+  bathroom: number;
+  land: number;
+  building: number;
+  badge?: "featured" | "new" | "hot" | "sold" | "rent" | "sale";
+};
+
+const properties: Property[] = [
   {
     id: 1,
     title: "Rumah Minimalis Modern",
