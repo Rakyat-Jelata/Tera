@@ -85,7 +85,7 @@ export default async function PropertyDetailPage({
 
 <div className="mt-8 grid gap-8 lg:grid-cols-[2fr_380px]">
 
-  import PropertyMap from "@/components/property/PropertyMap";
+  
   <PropertyAgentCard />
 
 </div>
