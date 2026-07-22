@@ -37,41 +37,45 @@ export default function HomePage() {
     <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col">
       {/* 1. NAVBAR */}
       <header className="bg-white border-b sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="font-bold text-xl text-blue-600">Teravia MP</div>
-          <nav className="flex gap-4 items-center">
-            <Link 
-              href="/dashboard" 
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
-            >
-              + Tambah Properti
-            </Link>
-          </nav>
-        </div>
+       <div className="flex items-center gap-2">
+  <img 
+    src="/logo.png" 
+    alt="Teravia MP Logo" 
+    className="h-9 w-auto object-contain" 
+  />
+  <span className="font-bold text-xl text-blue-600">Teravia MP</span>
+</div>
       </header>
 
       {/* 2. HERO BANNER */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16 px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-extrabold mb-4">
-            Temukan Properti Impianmu
-          </h1>
-          <p className="text-blue-100 text-base md:text-lg mb-8">
-            Cari rumah, apartemen, atau tanah terbaik dengan mudah dan cepat.
-          </p>
+      <section 
+  className="relative bg-cover bg-center py-20 px-4 text-center text-white"
+  style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+>
+  {/* Overlay hitam transparan biar teks tetap kelihatan jelas */}
+  <div className="absolute inset-0 bg-black/50"></div>
 
-          <div className="bg-white p-2 rounded-xl shadow-lg flex flex-col md:flex-row gap-2 max-w-2xl mx-auto">
-            <input
-              type="text"
-              placeholder="Cari lokasi atau nama properti..."
-              className="w-full px-4 py-3 text-gray-700 rounded-lg focus:outline-none"
-            />
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-              Cari
-            </button>
-          </div>
-        </div>
-      </section>
+  <div className="relative max-w-3xl mx-auto z-10">
+    <h1 className="text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-md">
+      Temukan Properti Impianmu
+    </h1>
+    <p className="text-gray-100 text-base md:text-lg mb-8 drop-shadow">
+      Cari rumah, apartemen, atau tanah terbaik dengan mudah dan cepat.
+    </p>
+
+    {/* Form Pencarian */}
+    <div className="bg-white p-2 rounded-xl shadow-lg flex flex-col md:flex-row gap-2 max-w-2xl mx-auto">
+      <input
+        type="text"
+        placeholder="Cari lokasi atau nama properti..."
+        className="w-full px-4 py-3 text-gray-700 rounded-lg focus:outline-none"
+      />
+      <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+        Cari
+      </button>
+    </div>
+  </div>
+</section>
 
       {/* 3. LIST PROPERTI */}
       <main className="max-w-6xl mx-auto px-4 py-12 flex-1 w-full">
