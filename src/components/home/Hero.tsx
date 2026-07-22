@@ -38,7 +38,7 @@ export default function Hero() {
           >
 
             <Image
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="TERAVIA"
               width={160}
               height={44}
@@ -138,7 +138,7 @@ export default function Hero() {
           <div className="mt-8">
 
             <Image
-              src="/images/logo-ai-ads.svg"
+              src="/images/logo-ai-ads.png"
               alt="AI & Ads"
               width={260}
               height={70}
