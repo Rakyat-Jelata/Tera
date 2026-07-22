@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PropertyGallery from "@/components/property/PropertyGallery";
+import PropertySummary from "@/components/property/PropertySummary";
 
 const properties = [
   {
@@ -75,7 +76,9 @@ export default async function PropertyDetailPage({
         <PropertyGallery />
 
 
-        <PropertyGallery />
+        <div className="mt-8">
+  <PropertySummary price={property.price} />
+</div>
 
 <div className="mt-8 overflow-hidden rounded-3xl bg-white shadow">
 
@@ -84,11 +87,6 @@ export default async function PropertyDetailPage({
     <h2 className="text-3xl font-extrabold text-cyan-600">
       {property.price}
     </h2>
-
-
-            <h2 className="mt-6 text-3xl font-extrabold text-cyan-600">
-              {property.price}
-            </h2>
 
 
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
