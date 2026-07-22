@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import SearchBar from "./SearchBar";
 
 export default function Hero() {
   return (
@@ -40,7 +41,7 @@ export default function Hero() {
           </p>
 
           {/* Search Box */}
-          <div className="mt-10 rounded-3xl bg-white p-6 shadow-2xl">
+          <SearchBar />
 
             <div className="grid gap-4 md:grid-cols-5">
 
