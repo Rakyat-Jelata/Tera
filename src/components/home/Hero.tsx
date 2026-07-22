@@ -47,7 +47,7 @@ export default function Hero() {
 
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-10 font-medium text-slate-700">
+          <nav className="flex items-center gap-10 font-medium text-slate-700">
 
             <Link href="/"
               className="text-slate-700 transition hover:text-cyan-600"
@@ -82,7 +82,7 @@ export default function Hero() {
 
           </nav>
 
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-4">
 
             <Link
   href="/login"
