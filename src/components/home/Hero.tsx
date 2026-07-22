@@ -43,46 +43,6 @@ export default function Hero() {
           {/* Search Box */}
           <SearchBar />
 
-            <div className="grid gap-4 md:grid-cols-5">
-
-              <input
-                type="text"
-                placeholder="Lokasi"
-                className="rounded-xl border p-4 outline-none focus:border-cyan-500"
-              />
-
-              <select className="rounded-xl border p-4">
-                <option>Semua Kategori</option>
-                <option>Hunian</option>
-                <option>Komersial</option>
-                <option>Tanah</option>
-                <option>Apartemen</option>
-              </select>
-
-              <select className="rounded-xl border p-4">
-                <option>Tipe Properti</option>
-                <option>Rumah</option>
-                <option>Ruko</option>
-                <option>Villa</option>
-                <option>Gudang</option>
-              </select>
-
-              <select className="rounded-xl border p-4">
-                <option>Harga</option>
-                <option>< Rp500 Juta</option>
-                <option>Rp500 Jt - Rp1 M</option>
-                <option>Rp1 M - Rp5 M</option>
-                <option>> Rp5 M</option>
-              </select>
-
-              <button className="rounded-xl bg-cyan-600 px-6 py-4 font-semibold text-white transition hover:bg-cyan-700">
-                Cari Properti
-              </button>
-
-            </div>
-
-          </div>
-
           {/* CTA */}
           <div className="mt-10 flex flex-wrap gap-4">
 
