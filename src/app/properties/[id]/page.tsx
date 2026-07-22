@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"; 
 import PropertyGallery from "@/components/property/PropertyGallery";
 import PropertySummary from "@/components/property/PropertySummary";
 import PropertySpecification from "@/components/property/PropertySpecification";
