@@ -40,7 +40,7 @@ export default function Hero() {
             <Image
               src="/images/logo.svg"
               alt="TERAVIA"
-              width={170}
+              width={160}
               height={44}
               priority
             />
