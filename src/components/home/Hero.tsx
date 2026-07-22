@@ -47,7 +47,7 @@ export default function Hero() {
 
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden lg:flex items-center gap-10 font-medium text-slate-700">
 
             <Link
               href="/"
@@ -58,8 +58,7 @@ export default function Hero() {
 
             <Link
               href="/property"
-              className="text-white transition hover:text-cyan-400"
-            >
+              className="text-white transition hover:text-cyan-400       >
               Properti
             </Link>
 
@@ -86,7 +85,7 @@ export default function Hero() {
 
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden lg:flex items-center gap-4">
 
             <Link
               href="/login"
