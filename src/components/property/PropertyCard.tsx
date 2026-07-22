@@ -89,7 +89,7 @@ export default function PropertyCard({
         <div className="my-6 border-t border-slate-200"></div>
 
         <PropertyInfo
-          bedroom={bedroom}
+          bedroom={bedroom} 
           bathroom={bathroom}
           land={land}
           building={building}
