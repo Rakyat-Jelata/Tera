@@ -51,7 +51,7 @@ const properties = [
     bathroom: 2,
     land: 100,
     building: 180,
-    badge: "premium",
+    badge: "sale",
   },
 ];
 
