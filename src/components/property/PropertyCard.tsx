@@ -33,8 +33,6 @@ export default function PropertyCard({
   return (
     <div className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-2xl">
 
-      {/* Image */}
-
       <div className="relative h-72 overflow-hidden rounded-t-3xl">
 
         <Image
@@ -43,21 +41,22 @@ export default function PropertyCard({
           fill
           className="object-cover transition duration-500 group-hover:scale-110"
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
         <div className="absolute left-4 top-4">
           <PropertyBadge type={badge} />
         </div>
+
         <div className="absolute left-4 bottom-4 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
-  ✓ Verified
-</div>
+          ✓ Verified
+        </div>
+
         <div className="absolute right-4 top-4">
           <FavoriteButton />
         </div>
 
       </div>
-
-      {/* Content */}
 
       <div className="p-6">
 
@@ -71,28 +70,28 @@ export default function PropertyCard({
 
         <div className="mt-5 flex items-center justify-between">
 
-  <div>
+          <div>
 
-    <p className="text-xs uppercase tracking-wide text-slate-500">
-      Harga
-    </p>
+            <p className="text-xs uppercase tracking-wide text-slate-500">
+              Harga
+            </p>
 
-    <h4 className="text-2xl font-extrabold text-cyan-600 md:text-3xl">
-      {price}
-    </h4>
+            <h4 className="text-2xl font-extrabold text-cyan-600 md:text-3xl">
+              {price}
+            </h4>
 
-  </div>
+          </div>
 
-  <div className="rounded-full bg-cyan-50 px-3 py-1 text-sm font-semibold text-cyan-700">
-    Siap Huni
-  </div>
+          <div className="rounded-full bg-cyan-50 px-3 py-1 text-sm font-semibold text-cyan-700">
+            Siap Huni
+          </div>
 
-</div>
+        </div>
 
         <div className="my-6 border-t border-slate-200"></div>
 
         <PropertyInfo
-          bedroom={bedroom} 
+          bedroom={bedroom}
           bathroom={bathroom}
           land={land}
           building={building}
@@ -100,47 +99,49 @@ export default function PropertyCard({
 
         <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-5">
 
-  <div>
-    <p className="text-sm font-semibold text-slate-800">
-      Budi Santoso
-    </p>
+          <div>
 
-    <p className="text-xs text-slate-500">
-      BrokerID #TRA001 • 2 jam lalu
-    </p>
-  </div>
+            <p className="text-sm font-semibold text-slate-800">
+              Budi Santoso
+            </p>
 
-  <div className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold text-cyan-700">
-    TERAVIA
-  </div>
+            <p className="text-xs text-slate-500">
+              BrokerID #TRA001 • 2 jam lalu
+            </p>
 
-</div>
+          </div>
 
-</div>
+          <div className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold text-cyan-700">
+            TERAVIA
+          </div>
 
-  <Link
-    href={`/properties/${id}`}
-    className="flex-1 rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
-  >
-    Lihat Detail
-  </Link>
+        </div>
 
-  <button
-  className="rounded-2xl border border-cyan-300 bg-cyan-50 px-5 transition hover:bg-cyan-100"
->
-  📞
-</button>
+        <div className="mt-6 flex gap-2">
 
-<button
-  className="rounded-2xl border border-green-300 bg-green-50 px-5 transition hover:bg-green-100"
->
-  💬
-</button>
+          <Link
+            href={`/properties/${id}`}
+            className="flex-1 rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
+          >
+            Lihat Detail
+          </Link>
 
-</div>
+          <button
+            className="rounded-2xl border border-cyan-300 bg-cyan-50 px-5 transition hover:bg-cyan-100"
+          >
+            📞
+          </button>
+
+          <button
+            className="rounded-2xl border border-green-300 bg-green-50 px-5 transition hover:bg-green-100"
+          >
+            💬
+          </button>
+
+        </div>
 
       </div>
 
     </div>
   );
-          }
+}
