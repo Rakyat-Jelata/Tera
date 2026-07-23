@@ -51,6 +51,12 @@ export default function PasangIklanPage() {
   bedrooms: "",
   bathrooms: "",
   floor: "",
+ buildYear: "",
+ electricity: "",
+ waterSource: "",
+ buildingOrientation: "",
+ garage: "",
+ carport: "",
 
   buildingCondition: "",
 
