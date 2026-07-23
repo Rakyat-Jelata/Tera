@@ -1,0 +1,157 @@
+"use client";
+
+interface PropertySpecificationFormProps {
+  onNext: () => void;
+  onBack: () => void;
+}
+
+export default function PropertySpecificationForm({
+  onNext,
+  onBack,
+}: PropertySpecificationFormProps) {
+  return (
+    <section className="rounded-3xl bg-white p-8 shadow-lg">
+
+      <div className="mb-8">
+
+        <h2 className="text-2xl font-bold text-slate-900">
+          Spesifikasi Properti
+        </h2>
+
+        <p className="mt-2 text-slate-500">
+          Lengkapi spesifikasi fisik dan legalitas properti.
+        </p>
+
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Luas Tanah (m²)
+          </label>
+
+          <input
+            type="number"
+            placeholder="120"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Luas Bangunan (m²)
+          </label>
+
+          <input
+            type="number"
+            placeholder="90"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kamar Tidur
+          </label>
+
+          <input
+            type="number"
+            placeholder="3"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kamar Mandi
+          </label>
+
+          <input
+            type="number"
+            placeholder="2"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Jumlah Lantai
+          </label>
+
+          <input
+            type="number"
+            placeholder="2"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Tahun Dibangun
+          </label>
+
+          <input
+            type="number"
+            placeholder="2022"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Legalitas
+          </label>
+
+          <select className="w-full rounded-2xl border border-slate-300 p-4">
+
+            <option>SHM</option>
+            <option>SHGB</option>
+            <option>AJB</option>
+            <option>PPJB</option>
+            <option>Girik</option>
+            <option>Letter C</option>
+            <option>HGU</option>
+            <option>Hak Pakai</option>
+            <option>Lainnya</option>
+
+          </select>
+        </div>
+
+        <div>
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kondisi Bangunan
+          </label>
+
+          <select className="w-full rounded-2xl border border-slate-300 p-4">
+
+            <option>Baru</option>
+            <option>Bekas</option>
+            <option>Renovasi</option>
+
+          </select>
+        </div>
+
+      </div>
+
+      <div className="mt-10 flex justify-between">
+
+        <button
+          onClick={onBack}
+          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+        >
+          ← Kembali
+        </button>
+
+        <button
+          onClick={onNext}
+          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+        >
+          Simpan & Lanjut →
+        </button>
+
+      </div>
+
+    </section>
+  );
+}
