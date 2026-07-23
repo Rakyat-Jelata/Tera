@@ -98,9 +98,11 @@ export default function PasangIklanPage() {
 
   {currentStep === 2 && (
     <PropertyLocationForm
-      onBack={prevStep}
-      onNext={nextStep}
-    />
+  formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
+/>
   )}
 
   {currentStep === 3 && (
