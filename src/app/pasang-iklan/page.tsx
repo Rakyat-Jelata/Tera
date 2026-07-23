@@ -57,10 +57,6 @@ virtualTourUrl: "",
   seoTitle: "",
   seoDescription: "",
   seoKeywords: "",
-
-    seoTitle: "",
-seoDescription: "",
-seoKeywords: "",
     
   aiDescription: "",
 });
