@@ -5,6 +5,7 @@ import PropertySpecification from "@/components/property/PropertySpecification";
 import PropertyDescription from "@/components/property/PropertyDescription";
 import PropertyAgentCard from "@/components/property/PropertyAgentCard";
 import PropertyMap from "@/components/property/PropertyMap";
+import PropertyFacilities from "@/components/property/PropertyFacilities";
 
 const properties = [
   {
@@ -18,6 +19,18 @@ const properties = [
     bathroom: 2,
     land: 120,
     building: 90,
+    facilities: [
+  "Carport",
+  "Garasi",
+  "Taman",
+  "Dapur",
+  "Ruang Keluarga",
+  "Balkon",
+  "PDAM",
+  "Listrik 2200 VA",
+  "Internet Fiber",
+  "Security 24 Jam",
+],
     description:
       "Rumah minimalis modern dengan desain nyaman dan lokasi strategis.",
   },
@@ -32,6 +45,15 @@ const properties = [
     bathroom: 3,
     land: 300,
     building: 220,
+    facilities: [
+    "Private Pool",
+    "Gazebo",
+    "BBQ Area",
+    "Garden",
+    "Mountain View",
+    "WiFi",
+    "Parking Area",
+  ],
     description:
       "Villa dengan pemandangan gunung dan suasana sejuk.",
   },
@@ -102,6 +124,9 @@ export default async function PropertyDetailPage({
       location={property.location}
     />
 
+    <PropertyFacilities
+  facilities={property.facilities}
+/>
   </div>
 
   <PropertyAgentCard />
