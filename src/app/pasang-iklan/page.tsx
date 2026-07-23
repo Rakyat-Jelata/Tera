@@ -57,7 +57,7 @@ export default function PasangIklanPage() {
  buildingOrientation: "",
  garage: "",
  carport: "",
- otherFacilities: "",
+ 
 
   buildingCondition: "",
 
@@ -71,7 +71,7 @@ export default function PasangIklanPage() {
 
   // Fasilitas
   facilities: [] as string[],
-
+  otherFacilities: "",
 
   // Media
   images: [] as File[],
