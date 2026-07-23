@@ -13,7 +13,6 @@ export default function PropertyVideoUpload({
   onBack,
   onNext,
 }: PropertyVideoUploadProps) {
-
   const handleVideoChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -26,25 +25,22 @@ export default function PropertyVideoUpload({
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
       <div className="mb-8">
-
         <h2 className="text-2xl font-bold text-slate-900">
           Video & Virtual Tour
         </h2>
 
-        <p className="mt-2 text-slate-500">
+        <p className="mt-2 text-slate-600">
           Tambahkan video atau virtual tour untuk meningkatkan daya tarik
           iklan. Langkah ini bersifat opsional.
         </p>
-
       </div>
 
       <div className="space-y-8">
 
         {/* Upload Video */}
-
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Upload Video
           </label>
 
@@ -58,42 +54,37 @@ export default function PropertyVideoUpload({
 
           <label
             htmlFor="property-video"
-            className="block cursor-pointer rounded-2xl border-2 border-dashed border-cyan-400 p-10 text-center transition hover:bg-cyan-50"
+            className="block cursor-pointer rounded-3xl border-2 border-dashed border-cyan-400 bg-cyan-50 p-10 text-center transition hover:bg-cyan-100"
           >
+            <div className="text-5xl">🎥</div>
 
-            <div className="text-lg font-semibold">
-              Upload Video Properti
-            </div>
+            <h3 className="mt-4 text-xl font-bold text-slate-900">
+              Klik untuk Upload Video
+            </h3>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 text-slate-600">
               MP4, MOV, WEBM • Maksimal 200 MB
             </p>
-
           </label>
 
           {formData.video && (
-
-            <div className="mt-4 rounded-xl bg-green-50 p-4">
-
+            <div className="mt-4 rounded-2xl bg-green-50 p-4">
               <p className="font-semibold text-green-700">
-                Video dipilih
+                ✅ Video berhasil dipilih
               </p>
 
-              <p className="text-sm text-slate-600">
+              <p className="mt-1 text-slate-700">
                 {formData.video.name}
               </p>
-
             </div>
-
           )}
 
         </div>
 
         {/* YouTube */}
-
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Link YouTube
           </label>
 
@@ -104,16 +95,15 @@ export default function PropertyVideoUpload({
               updateFormData("youtubeUrl", e.target.value)
             }
             placeholder="https://youtube.com/..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
           />
 
         </div>
 
         {/* Virtual Tour */}
-
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Link Virtual Tour
           </label>
 
@@ -124,7 +114,7 @@ export default function PropertyVideoUpload({
               updateFormData("virtualTourUrl", e.target.value)
             }
             placeholder="https://..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
           />
 
         </div>
@@ -135,7 +125,7 @@ export default function PropertyVideoUpload({
 
         <button
           onClick={onBack}
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold text-slate-900 transition hover:bg-slate-100"
         >
           ← Kembali
         </button>
@@ -151,4 +141,4 @@ export default function PropertyVideoUpload({
 
     </section>
   );
-            }
+}
