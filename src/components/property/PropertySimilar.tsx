@@ -37,19 +37,16 @@ export default function PropertySimilar({
 
         {properties.map((item) => (
 
-          <div
-            key={item.id}
-            className="overflow-hidden rounded-3xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-xl"
-          >
+          <div key={item.id}
+  className="group overflow-hidden rounded-3xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300 hover:shadow-2xl"
+>
 
-            <div className="relative h-52">
+            <div className="relative h-52 overflow-hidden">
 
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover"
-              />
+              <Image src={item.image}
+  alt={item.title}
+  fill className="object-cover transition-transform duration-500 group-hover:scale-110"
+/>
 
             </div>
 
