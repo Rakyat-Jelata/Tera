@@ -51,6 +51,9 @@ pricingNotes: "",
 
   video: null as File | null,
 
+youtubeUrl: "",
+virtualTourUrl: "",
+
   seoTitle: "",
   seoDescription: "",
   seoKeywords: "",
