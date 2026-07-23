@@ -60,11 +60,15 @@ Hubungi kami sekarang untuk informasi lebih lanjut ataupun jadwal survey lokasi.
       </div>
 
       <button
-        onClick={generateDescription}
-        className="rounded-2xl bg-violet-600 px-8 py-4 font-semibold text-white transition hover:bg-violet-700"
-      >
-        🤖 Generate Deskripsi AI
-      </button>
+  type="button"
+  onClick={() => {
+    alert("Generate diklik");
+    generateDescription();
+  }}
+  className="rounded-2xl bg-violet-600 px-8 py-4 font-semibold text-white transition hover:bg-violet-700"
+>
+  🤖 Generate Deskripsi AI
+</button>
 
       <div className="mt-8">
 
