@@ -22,7 +22,8 @@ export default function PasangIklanPage() {
   propertyType: "",
   transaction: "",
   price: "",
-
+  shortDescription: "",
+    
   province: "",
   city: "",
   district: "",
