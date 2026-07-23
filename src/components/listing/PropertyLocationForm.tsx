@@ -16,13 +16,14 @@ export default function PropertyLocationForm({
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xl">
 
+      {/* Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-slate-900">
           Lokasi Properti
         </h2>
 
         <p className="mt-2 text-slate-600">
-          Tentukan lokasi properti secara lengkap.
+          Lengkapi lokasi properti dengan benar agar mudah ditemukan calon pembeli maupun penyewa.
         </p>
       </div>
 
@@ -31,75 +32,94 @@ export default function PropertyLocationForm({
         {/* Provinsi */}
         <div>
           <label className="mb-2 block font-semibold text-slate-900">
-            Provinsi
+            Provinsi <span className="text-red-500">*</span>
           </label>
 
           <select
             value={formData.province}
             onChange={(e) => updateFormData("province", e.target.value)}
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
           >
-            <option value="">Pilih Provinsi</option>
+            <option value="">
+              Pilih Provinsi
+            </option>
+
+            {/* API Wilayah */}
           </select>
         </div>
 
         {/* Kabupaten */}
         <div>
           <label className="mb-2 block font-semibold text-slate-900">
-            Kabupaten / Kota
+            Kabupaten / Kota <span className="text-red-500">*</span>
           </label>
 
           <select
+            disabled={!formData.province}
             value={formData.city}
             onChange={(e) => updateFormData("city", e.target.value)}
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            className="w-full rounded-2xl border border-slate-300 bg-white p-4 disabled:bg-slate-100 disabled:text-slate-400"
           >
-            <option value="">Pilih Kabupaten / Kota</option>
+            <option value="">
+              Pilih Kabupaten / Kota
+            </option>
+
+            {/* API Wilayah */}
           </select>
         </div>
 
         {/* Kecamatan */}
         <div>
           <label className="mb-2 block font-semibold text-slate-900">
-            Kecamatan
+            Kecamatan <span className="text-red-500">*</span>
           </label>
 
           <select
+            disabled={!formData.city}
             value={formData.district}
             onChange={(e) => updateFormData("district", e.target.value)}
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            className="w-full rounded-2xl border border-slate-300 bg-white p-4 disabled:bg-slate-100 disabled:text-slate-400"
           >
-            <option value="">Pilih Kecamatan</option>
+            <option value="">
+              Pilih Kecamatan
+            </option>
+
+            {/* API Wilayah */}
           </select>
         </div>
 
         {/* Kelurahan */}
         <div>
           <label className="mb-2 block font-semibold text-slate-900">
-            Kelurahan / Desa
+            Kelurahan / Desa <span className="text-red-500">*</span>
           </label>
 
           <select
+            disabled={!formData.district}
             value={formData.village}
             onChange={(e) => updateFormData("village", e.target.value)}
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            className="w-full rounded-2xl border border-slate-300 bg-white p-4 disabled:bg-slate-100 disabled:text-slate-400"
           >
-            <option value="">Pilih Kelurahan / Desa</option>
+            <option value="">
+              Pilih Kelurahan / Desa
+            </option>
+
+            {/* API Wilayah */}
           </select>
         </div>
 
         {/* Alamat */}
         <div className="md:col-span-2">
           <label className="mb-2 block font-semibold text-slate-900">
-            Alamat Lengkap
+            Alamat Lengkap <span className="text-red-500">*</span>
           </label>
 
           <textarea
             rows={5}
             value={formData.address}
             onChange={(e) => updateFormData("address", e.target.value)}
-            placeholder="Masukkan alamat lengkap..."
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            placeholder="Contoh: Jl. Raya Bogor No. 123, RT 01/RW 02"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
           />
         </div>
 
@@ -111,27 +131,32 @@ export default function PropertyLocationForm({
 
           <input
             type="text"
-            placeholder="Contoh: 16111"
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            value={formData.postalCode || ""}
+            onChange={(e) => updateFormData("postalCode", e.target.value)}
+            placeholder="16111"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
           />
         </div>
 
         {/* Google Maps */}
         <div>
           <label className="mb-2 block font-semibold text-slate-900">
-            Google Maps
+            Link Google Maps
           </label>
 
           <input
-            type="text"
-            placeholder="Tempel link Google Maps (Opsional)"
-            className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
+            type="url"
+            value={formData.googleMapsUrl || ""}
+            onChange={(e) => updateFormData("googleMapsUrl", e.target.value)}
+            placeholder="https://maps.google.com/..."
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
           />
         </div>
 
       </div>
 
-      <div className="mt-8 rounded-2xl border-2 border-dashed border-cyan-300 bg-cyan-50 p-10 text-center">
+      {/* Preview */}
+      <div className="mt-10 rounded-3xl border-2 border-dashed border-cyan-300 bg-cyan-50 p-10 text-center">
 
         <div className="text-5xl">
           🗺️
@@ -142,11 +167,12 @@ export default function PropertyLocationForm({
         </h3>
 
         <p className="mt-2 text-slate-600">
-          Google Maps / OpenStreetMap akan tampil di sini setelah integrasi API.
+          Peta Google Maps / OpenStreetMap akan muncul di sini setelah API Wilayah dan Maps diintegrasikan.
         </p>
 
       </div>
 
+      {/* Navigation */}
       <div className="mt-10 flex justify-between">
 
         <button
@@ -167,4 +193,4 @@ export default function PropertyLocationForm({
 
     </section>
   );
-}
+      }
