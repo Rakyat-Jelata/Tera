@@ -1,11 +1,14 @@
 "use client";
 
 interface PropertyPreviewProps {
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onNext: () => void;
   onBack: () => void;
 }
-
 export default function PropertyPreview({
+  formData,
+  updateFormData,
   onNext,
   onBack,
 }: PropertyPreviewProps) {
