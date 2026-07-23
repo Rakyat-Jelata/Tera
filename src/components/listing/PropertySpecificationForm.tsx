@@ -171,12 +171,23 @@ export default function PropertySpecificationForm({
           ← Kembali
         </button>
 
-        <button
-          onClick={onNext}
-          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Simpan & Lanjut →
-        </button>
+        <div className="mt-10 flex justify-between">
+
+  <button
+    onClick={onBack}
+    className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+  >
+    ← Kembali
+  </button>
+
+  <button
+    onClick={onNext}
+    className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+  >
+    Simpan & Lanjut →
+  </button>
+
+</div>
 
       </div>
 
