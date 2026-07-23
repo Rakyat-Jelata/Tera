@@ -82,20 +82,19 @@ virtualTourUrl: "",
 };
   
   return (
-    <main className="min-h-screen bg-slate-100 py-10">
+    <main className="min-h-screen bg-slate-50 py-10">
 
       <div className="mx-auto max-w-7xl px-6">
 
         <div className="mb-8">
 
-          <h1 className="text-4xl font-black text-slate-900">
-            Pasang Iklan Properti
-          </h1>
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-950">
+  Pasang Iklan Properti
+</h1>
 
-          <p className="mt-3 text-slate-600">
-            Isi informasi properti Anda dengan lengkap agar lebih cepat
-            ditemukan calon pembeli maupun penyewa.
-          </p>
+<p className="mt-3 text-lg leading-8 text-slate-700">
+  Isi informasi properti Anda dengan lengkap agar lebih cepat ditemukan calon pembeli maupun penyewa.
+</p>
 
         </div>
 
