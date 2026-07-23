@@ -32,7 +32,7 @@ export default function PropertyBasicForm({
         {/* Judul */}
         <div className="md:col-span-2">
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Judul Properti
           </label>
 
@@ -51,7 +51,7 @@ export default function PropertyBasicForm({
         {/* Kategori */}
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Kategori
           </label>
 
@@ -76,7 +76,7 @@ export default function PropertyBasicForm({
         {/* Tipe */}
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Tipe Properti
           </label>
 
@@ -85,7 +85,7 @@ export default function PropertyBasicForm({
   onChange={(e) =>
     updateFormData("propertyType", e.target.value)
   }
-  className="w-full rounded-2xl border border-slate-300 p-4"
+  className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
 >
 
   <option value="">Pilih Tipe</option>
@@ -103,7 +103,7 @@ export default function PropertyBasicForm({
         {/* Transaksi */}
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Transaksi
           </label>
 
@@ -112,7 +112,7 @@ export default function PropertyBasicForm({
   onChange={(e) =>
     updateFormData("transaction", e.target.value)
   }
-  className="w-full rounded-2xl border border-slate-300 p-4"
+  className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
 >
 
   <option value="">Pilih Transaksi</option>
@@ -126,7 +126,7 @@ export default function PropertyBasicForm({
         {/* Harga */}
         <div>
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Harga
           </label>
 
@@ -137,7 +137,7 @@ export default function PropertyBasicForm({
     updateFormData("price", e.target.value)
   }
   placeholder="850000000"
-  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+  className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
 />
 
         </div>
@@ -145,14 +145,14 @@ export default function PropertyBasicForm({
         {/* Deskripsi Singkat */}
         <div className="md:col-span-2">
 
-          <label className="mb-2 block font-semibold text-slate-700">
+          <label className="mb-2 block font-semibold text-slate-900">
             Deskripsi Singkat
           </label>
 
           <textarea
   rows={5}
   placeholder="Tuliskan ringkasan properti..."
-  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+  className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200"
 />
 
         </div>
