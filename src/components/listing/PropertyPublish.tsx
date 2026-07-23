@@ -1,12 +1,17 @@
 "use client";
 
 interface PropertyPublishProps {
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
 }
 
 export default function PropertyPublish({
+  formData,
+  updateFormData,
   onBack,
 }: PropertyPublishProps) {
+  
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
