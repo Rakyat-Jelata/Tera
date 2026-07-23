@@ -1,14 +1,30 @@
 "use client";
 
 interface PropertyImageUploadProps {
-  onNext: () => void;
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onNext: () => void;
 }
 
 export default function PropertyImageUpload({
-  onNext,
+  formData,
+  updateFormData,
   onBack,
+  onNext,
 }: PropertyImageUploadProps) {
+
+  const handleImageChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  if (!e.target.files) return;
+
+  updateFormData(
+    "images",
+    Array.from(e.target.files)
+  );
+};
+  
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -39,12 +55,16 @@ export default function PropertyImageUpload({
         </p>
 
         <input
-          type="file"
-          multiple
-          accept="image/*"
-          className="mt-6 block w-full cursor-pointer rounded-xl border border-slate-300 bg-white p-4"
-        />
-
+  type="file"
+  multiple
+  accept="image/*"
+  onChange={handleImageChange}
+  className="hidden"
+  id="property-images"
+/>
+<p className="mt-4 text-sm text-slate-500">
+  {formData.images.length} foto dipilih
+</p>
       </div>
 
       <div className="mt-8 rounded-2xl bg-slate-50 p-6">
@@ -71,22 +91,23 @@ export default function PropertyImageUpload({
 
       <div className="mt-10 flex justify-between">
 
-        <button
-          onClick={onBack}
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
-        >
-          ← Kembali
-        </button>
+        <div className="mt-10 flex justify-between">
 
-        <button
-          onClick={onNext}
-          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Simpan & Lanjut →
-        </button>
+  <button
+    onClick={onBack}
+    className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold hover:bg-slate-100"
+  >
+    ← Kembali
+  </button>
 
-      </div>
+  <button
+    onClick={onNext}
+    className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white hover:bg-cyan-700"
+  >
+    Simpan & Lanjut →
+  </button>
 
+</div>
     </section>
   );
 }
