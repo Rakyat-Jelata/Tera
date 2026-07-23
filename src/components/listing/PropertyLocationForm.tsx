@@ -1,0 +1,162 @@
+"use client";
+
+export default function PropertyLocationForm() {
+  return (
+    <section className="rounded-3xl bg-white p-8 shadow-lg">
+
+      <div className="mb-8">
+
+        <h2 className="text-2xl font-bold text-slate-900">
+          Lokasi Properti
+        </h2>
+
+        <p className="mt-2 text-slate-500">
+          Tentukan lokasi properti secara lengkap.
+        </p>
+
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
+
+        {/* Provinsi */}
+        <div>
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Provinsi
+          </label>
+
+          <select className="w-full rounded-2xl border border-slate-300 p-4">
+
+            <option>Pilih Provinsi</option>
+
+          </select>
+
+        </div>
+
+        {/* Kabupaten */}
+        <div>
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kabupaten / Kota
+          </label>
+
+          <select className="w-full rounded-2xl border border-slate-300 p-4">
+
+            <option>Pilih Kabupaten / Kota</option>
+
+          </select>
+
+        </div>
+
+        {/* Kecamatan */}
+        <div>
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kecamatan
+          </label>
+
+          <select className="w-full rounded-2xl border border-slate-300 p-4">
+
+            <option>Pilih Kecamatan</option>
+
+          </select>
+
+        </div>
+
+        {/* Kelurahan */}
+        <div>
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kelurahan / Desa
+          </label>
+
+          <select className="w-full rounded-2xl border border-slate-300 p-4">
+
+            <option>Pilih Kelurahan / Desa</option>
+
+          </select>
+
+        </div>
+
+        {/* Alamat */}
+        <div className="md:col-span-2">
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Alamat Lengkap
+          </label>
+
+          <textarea
+            rows={4}
+            placeholder="Masukkan alamat lengkap properti..."
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+
+        </div>
+
+        {/* Kode Pos */}
+        <div>
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Kode Pos
+          </label>
+
+          <input
+            type="text"
+            placeholder="Contoh: 16111"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+
+        </div>
+
+        {/* Titik Koordinat */}
+        <div>
+
+          <label className="mb-2 block font-semibold text-slate-700">
+            Google Maps
+          </label>
+
+          <input
+            type="text"
+            placeholder="Tempel link Google Maps (Opsional)"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          />
+
+        </div>
+
+      </div>
+
+      <div className="mt-8 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-100 p-10 text-center">
+
+        <div className="text-5xl">
+          🗺️
+        </div>
+
+        <h3 className="mt-4 text-xl font-bold text-slate-800">
+          Preview Lokasi
+        </h3>
+
+        <p className="mt-2 text-slate-500">
+          Google Maps / OpenStreetMap akan tampil di sini setelah integrasi API.
+        </p>
+
+      </div>
+
+      <div className="mt-10 flex justify-between">
+
+        <button
+          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+        >
+          ← Kembali
+        </button>
+
+        <button
+          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+        >
+          Simpan & Lanjut →
+        </button>
+
+      </div>
+
+    </section>
+  );
+        }
