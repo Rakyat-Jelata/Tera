@@ -23,6 +23,14 @@ export default function PasangIklanPage() {
   transaction: "",
   price: "",
   shortDescription: "",
+  pricePerMeter: "",
+negotiable: false,
+serviceCharge: "",
+annualTax: "",
+ownershipStatus: "",
+propertyTaxStatus: "",
+buildingPermit: "",
+pricingNotes: "",
     
   province: "",
   city: "",
@@ -108,7 +116,7 @@ export default function PasangIklanPage() {
   )}
 
   {currentStep === 3 && (
-    <<PropertySpecificationForm
+    <PropertySpecificationForm
   formData={formData}
   updateFormData={updateFormData}
   onBack={prevStep}
