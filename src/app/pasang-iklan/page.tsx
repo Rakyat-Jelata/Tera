@@ -58,6 +58,10 @@ virtualTourUrl: "",
   seoDescription: "",
   seoKeywords: "",
 
+    seoTitle: "",
+seoDescription: "",
+seoKeywords: "",
+    
   aiDescription: "",
 });
   
