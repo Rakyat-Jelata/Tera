@@ -20,28 +20,30 @@ export default function PropertyAIDescription({
 ${formData.title}
 
 Kategori : ${formData.category}
-Tipe : ${formData.propertyType}
-Transaksi : ${formData.transaction}
+Tipe Properti : ${formData.propertyType}
+Jenis Transaksi : ${formData.transaction}
 
-Lokasi :
+📍 Lokasi
 ${formData.address}
 
-Luas Tanah : ${formData.landArea} m²
-Luas Bangunan : ${formData.buildingArea} m²
+Spesifikasi Properti
+• Luas Tanah : ${formData.landArea} m²
+• Luas Bangunan : ${formData.buildingArea} m²
+• Kamar Tidur : ${formData.bedroom}
+• Kamar Mandi : ${formData.bathroom}
+• Legalitas : ${formData.legal}
 
-Kamar Tidur : ${formData.bedroom}
-Kamar Mandi : ${formData.bathroom}
-
-Harga :
+Harga
 Rp ${formData.price}
 
-Properti ini sangat cocok bagi Anda yang mencari hunian maupun investasi dengan lokasi strategis, akses mudah, serta lingkungan yang nyaman.
+${formData.shortDescription}
 
-Hubungi kami sekarang untuk informasi lebih lanjut ataupun jadwal survey lokasi.
+Properti ini sangat cocok bagi Anda yang sedang mencari hunian nyaman maupun investasi yang menjanjikan. Memiliki lokasi strategis, akses mudah, lingkungan yang nyaman serta nilai investasi yang terus berkembang.
+
+Segera hubungi kami sekarang juga untuk mendapatkan informasi lengkap maupun menjadwalkan survey lokasi.
 `;
 
     updateFormData("aiDescription", description.trim());
-
   };
 
   return (
@@ -53,28 +55,23 @@ Hubungi kami sekarang untuk informasi lebih lanjut ataupun jadwal survey lokasi.
           AI Description
         </h2>
 
-        <p className="mt-2 text-slate-500">
-          Generate deskripsi iklan otomatis berdasarkan data yang telah Anda isi.
+        <p className="mt-2 text-slate-600">
+          Generate deskripsi iklan secara otomatis berdasarkan data yang telah Anda isi.
         </p>
 
       </div>
 
       <button
-  type="button"
-  onClick={() => {
-    alert("Generate diklik");
+        type="button"
+        onClick={generateDescription}
+        className="rounded-2xl bg-violet-600 px-8 py-4 font-semibold text-white transition hover:bg-violet-700"
+      >
+        🤖 Generate Deskripsi AI
+      </button>
 
-    updateFormData(
-      "aiDescription",
-      "INI TEST BERHASIL MASUK"
-    );
-  }}
->
-  🤖 Generate Deskripsi AI
-</button>
       <div className="mt-8">
 
-        <label className="mb-2 block font-semibold text-slate-700">
+        <label className="mb-2 block font-semibold text-slate-900">
           Hasil Deskripsi
         </label>
 
@@ -84,9 +81,23 @@ Hubungi kami sekarang untuk informasi lebih lanjut ataupun jadwal survey lokasi.
           onChange={(e) =>
             updateFormData("aiDescription", e.target.value)
           }
-          placeholder="Hasil AI akan muncul di sini..."
-          className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
+          placeholder="Klik tombol Generate Deskripsi AI..."
+          className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
         />
+
+      </div>
+
+      <div className="mt-8 rounded-2xl bg-violet-50 p-6">
+
+        <h4 className="font-bold text-slate-900">
+          💡 Tips
+        </h4>
+
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-700">
+          <li>Isi seluruh data properti terlebih dahulu.</li>
+          <li>Semakin lengkap data, semakin baik hasil deskripsi.</li>
+          <li>Deskripsi masih bisa diedit sebelum dipublikasikan.</li>
+        </ul>
 
       </div>
 
@@ -94,7 +105,7 @@ Hubungi kami sekarang untuk informasi lebih lanjut ataupun jadwal survey lokasi.
 
         <button
           onClick={onBack}
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold text-slate-900 transition hover:bg-slate-100"
         >
           ← Kembali
         </button>
