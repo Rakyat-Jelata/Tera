@@ -106,65 +106,83 @@ export default function PasangIklanPage() {
   )}
 
   {currentStep === 3 && (
-    <PropertySpecificationForm
-      onBack={prevStep}
-      onNext={nextStep}
-    />
+    <<PropertySpecificationForm
+  formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
+/>
   )}
 
   {currentStep === 4 && (
     <PropertyFacilitiesForm
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 5 && (
     <PropertyPricingForm
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 6 && (
     <PropertyImageUpload
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 7 && (
     <PropertyVideoUpload
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 8 && (
     <PropertySEOForm
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 9 && (
     <PropertyAIDescription
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 10 && (
     <PropertyPreview
-      onBack={prevStep}
-      onNext={nextStep}
+      formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+  onNext={nextStep}
     />
   )}
 
   {currentStep === 11 && (
     <PropertyPublish
-      onBack={prevStep}
-    />
+  formData={formData}
+  updateFormData={updateFormData}
+  onBack={prevStep}
+/>
   )}
 
 </div>
