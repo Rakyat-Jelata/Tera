@@ -1,11 +1,15 @@
 "use client";
 
 interface PropertyLocationFormProps {
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onNext: () => void;
   onBack: () => void;
 }
 
 export default function PropertyLocationForm({
+  formData,
+  updateFormData,
   onNext,
   onBack,
 }: PropertyLocationFormProps) {
@@ -34,12 +38,15 @@ export default function PropertyLocationForm({
             Provinsi
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-
-            <option>Pilih Provinsi</option>
-
-          </select>
-
+          <select
+  value={formData.province}
+  onChange={(e) =>
+    updateFormData("province", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
+  <option value="">Pilih Provinsi</option>
+</select>
         </div>
 
         {/* Kabupaten */}
@@ -49,11 +56,15 @@ export default function PropertyLocationForm({
             Kabupaten / Kota
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-
-            <option>Pilih Kabupaten / Kota</option>
-
-          </select>
+          <select
+  value={formData.city}
+  onChange={(e) =>
+    updateFormData("city", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
+  <option value="">Pilih Kabupaten / Kota</option>
+</select>
 
         </div>
 
@@ -64,11 +75,15 @@ export default function PropertyLocationForm({
             Kecamatan
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-
-            <option>Pilih Kecamatan</option>
-
-          </select>
+          <select
+  value={formData.district}
+  onChange={(e) =>
+    updateFormData("district", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
+  <option value="">Pilih Kecamatan</option>
+</select>
 
         </div>
 
@@ -79,11 +94,15 @@ export default function PropertyLocationForm({
             Kelurahan / Desa
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-
-            <option>Pilih Kelurahan / Desa</option>
-
-          </select>
+          <select
+  value={formData.village}
+  onChange={(e) =>
+    updateFormData("village", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
+  <option value="">Pilih Kelurahan / Desa</option>
+</select>
 
         </div>
 
@@ -95,10 +114,14 @@ export default function PropertyLocationForm({
           </label>
 
           <textarea
-            rows={4}
-            placeholder="Masukkan alamat lengkap properti..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  rows={5}
+  value={formData.address}
+  onChange={(e) =>
+    updateFormData("address", e.target.value)
+  }
+  placeholder="Masukkan alamat lengkap..."
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+/>
 
         </div>
 
