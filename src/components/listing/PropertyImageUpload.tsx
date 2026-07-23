@@ -91,8 +91,6 @@ export default function PropertyImageUpload({
 
       <div className="mt-10 flex justify-between">
 
-        <div className="mt-10 flex justify-between">
-
   <button
     onClick={onBack}
     className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold hover:bg-slate-100"
