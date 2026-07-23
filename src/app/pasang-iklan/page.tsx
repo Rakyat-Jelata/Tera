@@ -1,7 +1,20 @@
+"use client";
+import { useState } from "react";
 import PropertyStepper from "@/components/listing/PropertyStepper";
 import PropertyLocationForm from "@/components/listing/PropertyLocationForm";
 
 export default function PasangIklanPage() {
+
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const nextStep = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, 11));
+  };
+
+  const prevStep = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
+
   return (
     <main className="min-h-screen bg-slate-100 py-10">
 
@@ -20,10 +33,13 @@ export default function PasangIklanPage() {
 
         </div>
 
-        <PropertyStepper currentStep={2} />
+        <PropertyStepper currentStep={currentStep} />
 
         <div className="mt-8">
-          <PropertyLocationForm />
+          <PropertyLocationForm
+  onBack={prevStep}
+  onNext={nextStep}
+/>
         </div>
 
       </div>
