@@ -39,6 +39,10 @@ export default function PasangIklanPage() {
   district: "",
   village: "",
   address: "",
+  postalCode: "",
+  googleMapsUrl: "",
+  latitude: "",
+  longitude: "",
 
 
   // Spesifikasi
