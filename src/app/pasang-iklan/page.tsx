@@ -1,4 +1,5 @@
 import PropertyStepper from "@/components/listing/PropertyStepper";
+import PropertyBasicForm from "@/components/listing/PropertyBasicForm";
 
 export default function PasangIklanPage() {
   return (
@@ -21,20 +22,8 @@ export default function PasangIklanPage() {
 
         <PropertyStepper currentStep={1} />
 
-        <div className="mt-8 rounded-3xl bg-white p-12 text-center shadow-lg">
-
-          <div className="text-6xl">
-            🏡
-          </div>
-
-          <h2 className="mt-6 text-2xl font-bold text-slate-900">
-            Form Informasi Properti
-          </h2>
-
-          <p className="mt-3 text-slate-500">
-            PropertyBasicForm akan ditambahkan pada langkah berikutnya.
-          </p>
-
+        <div className="mt-8">
+          <PropertyBasicForm />
         </div>
 
       </div>
