@@ -2,6 +2,16 @@
 import { useState } from "react";
 import PropertyStepper from "@/components/listing/PropertyStepper";
 import PropertyLocationForm from "@/components/listing/PropertyLocationForm";
+import PropertyBasicForm from "@/components/listing/PropertyBasicForm";
+import PropertySpecificationForm from "@/components/listing/PropertySpecificationForm";
+import PropertyFacilitiesForm from "@/components/listing/PropertyFacilitiesForm";
+import PropertyPricingForm from "@/components/listing/PropertyPricingForm";
+import PropertyImageUpload from "@/components/listing/PropertyImageUpload";
+import PropertyVideoUpload from "@/components/listing/PropertyVideoUpload";
+import PropertySEOForm from "@/components/listing/PropertySEOForm";
+import PropertyAIDescription from "@/components/listing/PropertyAIDescription";
+import PropertyPreview from "@/components/listing/PropertyPreview";
+import PropertyPublish from "@/components/listing/PropertyPublish";
 
 export default function PasangIklanPage() {
 
@@ -36,11 +46,83 @@ export default function PasangIklanPage() {
         <PropertyStepper currentStep={currentStep} />
 
         <div className="mt-8">
-          <PropertyLocationForm
-  onBack={prevStep}
-  onNext={nextStep}
-/>
-        </div>
+
+  {currentStep === 1 && (
+    <PropertyBasicForm
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 2 && (
+    <PropertyLocationForm
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 3 && (
+    <PropertySpecificationForm
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 4 && (
+    <PropertyFacilitiesForm
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 5 && (
+    <PropertyPricingForm
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 6 && (
+    <PropertyImageUpload
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 7 && (
+    <PropertyVideoUpload
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 8 && (
+    <PropertySEOForm
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 9 && (
+    <PropertyAIDescription
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 10 && (
+    <PropertyPreview
+      onBack={prevStep}
+      onNext={nextStep}
+    />
+  )}
+
+  {currentStep === 11 && (
+    <PropertyPublish
+      onBack={prevStep}
+    />
+  )}
+
+</div>
 
       </div>
 
