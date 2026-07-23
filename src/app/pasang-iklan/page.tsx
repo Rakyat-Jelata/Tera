@@ -1,5 +1,5 @@
 import PropertyStepper from "@/components/listing/PropertyStepper";
-import PropertyBasicForm from "@/components/listing/PropertyBasicForm";
+import PropertyLocationForm from "@/components/listing/PropertyLocationForm";
 
 export default function PasangIklanPage() {
   return (
@@ -20,10 +20,10 @@ export default function PasangIklanPage() {
 
         </div>
 
-        <PropertyStepper currentStep={1} />
+        <PropertyStepper currentStep={2} />
 
         <div className="mt-8">
-          <PropertyBasicForm />
+          <PropertyLocationForm />
         </div>
 
       </div>
