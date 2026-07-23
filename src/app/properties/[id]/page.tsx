@@ -7,6 +7,7 @@ import PropertyAgentCard from "@/components/property/PropertyAgentCard";
 import PropertyMap from "@/components/property/PropertyMap";
 import PropertyFacilities from "@/components/property/PropertyFacilities";
 import PropertySimilar from "@/components/property/PropertySimilar";
+import PropertyStickyContact from "@/components/property/PropertyStickyContact";
 
 const properties = [
   {
@@ -138,6 +139,7 @@ export default async function PropertyDetailPage({
 
 </div>
 </div>
+      <PropertyStickyContact />
 </main>
   );
 }
