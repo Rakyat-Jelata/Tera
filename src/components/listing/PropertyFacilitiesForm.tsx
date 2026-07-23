@@ -1,14 +1,35 @@
 "use client";
 
 interface PropertyFacilitiesFormProps {
-  onNext: () => void;
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onNext: () => void;
 }
 
 export default function PropertyFacilitiesForm({
-  onNext,
+  formData,
+  updateFormData,
   onBack,
+  onNext,
 }: PropertyFacilitiesFormProps) {
+
+  const toggleFacility = (facility: string) => {
+  const exists = formData.facilities.includes(facility);
+
+  if (exists) {
+    updateFormData(
+      "facilities",
+      formData.facilities.filter((item: string) => item !== facility)
+    );
+  } else {
+    updateFormData(
+      "facilities",
+      [...formData.facilities, facility]
+    );
+  }
+};
+  
   const facilities = [
     "Carport",
     "Garasi",
@@ -61,9 +82,10 @@ export default function PropertyFacilitiesForm({
           >
 
             <input
-              type="checkbox"
-              className="h-5 w-5 accent-cyan-600"
-            />
+  type="checkbox"
+  checked={formData.facilities.includes(facility)}
+  onChange={() => toggleFacility(facility)}
+/>
 
             <span className="font-medium text-slate-700">
               {facility}
@@ -77,19 +99,19 @@ export default function PropertyFacilitiesForm({
 
       <div className="mt-10 flex justify-between">
 
-        <button
-          onClick={onBack}
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
-        >
-          ← Kembali
-        </button>
+  <button
+    onClick={onBack}
+    className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+  >
+    ← Kembali
+  </button>
 
-        <button
-          onClick={onNext}
-          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Simpan & Lanjut →
-        </button>
+  <button
+    onClick={onNext}
+    className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+  >
+    Simpan & Lanjut →
+  </button>
 
       </div>
 
