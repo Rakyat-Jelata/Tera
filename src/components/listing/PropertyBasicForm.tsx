@@ -1,10 +1,14 @@
 "use client";
 
 interface PropertyBasicFormProps {
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onNext: () => void;
 }
 
 export default function PropertyBasicForm({
+  formData,
+  updateFormData,
   onNext,
 }: PropertyBasicFormProps) {
   
@@ -33,10 +37,14 @@ export default function PropertyBasicForm({
           </label>
 
           <input
-            type="text"
-            placeholder="Contoh: Rumah Minimalis Modern Dekat Tol"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="text"
+  value={formData.title}
+  onChange={(e) =>
+    updateFormData("title", e.target.value)
+  }
+  placeholder="Contoh: Rumah Minimalis Modern Dekat Tol"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+/>
 
         </div>
 
@@ -47,14 +55,21 @@ export default function PropertyBasicForm({
             Kategori
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
+          <select
+  value={formData.category}
+  onChange={(e) =>
+    updateFormData("category", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
 
-            <option>Hunian</option>
-            <option>Komersial</option>
-            <option>Tanah & Lahan</option>
-            <option>Institusi & Fasilitas</option>
+  <option value="">Pilih Kategori</option>
+  <option value="Hunian">Hunian</option>
+  <option value="Komersial">Komersial</option>
+  <option value="Tanah & Lahan">Tanah & Lahan</option>
+  <option value="Institusi & Fasilitas">Institusi & Fasilitas</option>
 
-          </select>
+</select>
 
         </div>
 
@@ -65,16 +80,23 @@ export default function PropertyBasicForm({
             Tipe Properti
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
+          <select
+  value={formData.propertyType}
+  onChange={(e) =>
+    updateFormData("propertyType", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
 
-            <option>Rumah</option>
-            <option>Apartemen</option>
-            <option>Villa</option>
-            <option>Ruko</option>
-            <option>Gudang</option>
-            <option>Tanah</option>
+  <option value="">Pilih Tipe</option>
+  <option value="Rumah">Rumah</option>
+  <option value="Apartemen">Apartemen</option>
+  <option value="Villa">Villa</option>
+  <option value="Ruko">Ruko</option>
+  <option value="Gudang">Gudang</option>
+  <option value="Tanah">Tanah</option>
 
-          </select>
+</select>
 
         </div>
 
@@ -85,12 +107,19 @@ export default function PropertyBasicForm({
             Transaksi
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
+          <select
+  value={formData.transaction}
+  onChange={(e) =>
+    updateFormData("transaction", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
 
-            <option>Jual</option>
-            <option>Sewa</option>
+  <option value="">Pilih Transaksi</option>
+  <option value="Jual">Jual</option>
+  <option value="Sewa">Sewa</option>
 
-          </select>
+</select>
 
         </div>
 
@@ -102,10 +131,14 @@ export default function PropertyBasicForm({
           </label>
 
           <input
-            type="number"
-            placeholder="850000000"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.price}
+  onChange={(e) =>
+    updateFormData("price", e.target.value)
+  }
+  placeholder="850000000"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+/>
 
         </div>
 
@@ -117,10 +150,10 @@ export default function PropertyBasicForm({
           </label>
 
           <textarea
-            rows={5}
-            placeholder="Tuliskan ringkasan properti..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  rows={5}
+  placeholder="Tuliskan ringkasan properti..."
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+/>
 
         </div>
 
