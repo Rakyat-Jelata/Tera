@@ -91,7 +91,7 @@ export default async function PropertyDetailPage({
 
   return (
     <main className="min-h-screen bg-slate-100 px-6 py-10">
-
+      
       <div className="mx-auto max-w-6xl">
 
         <Link
@@ -131,13 +131,13 @@ export default async function PropertyDetailPage({
 />
   </div>
 
-  <PropertySimilar
-  properties={properties.filter((item) => item.id !== property.id)}
-/>
-
   <PropertyAgentCard />
 
 </div>
+
+          <PropertySimilar
+  properties={properties.filter((item) => item.id !== property.id)}
+/>
 </div>
       <PropertyStickyContact />
 </main>
