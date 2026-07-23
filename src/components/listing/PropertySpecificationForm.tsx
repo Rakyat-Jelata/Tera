@@ -1,14 +1,19 @@
 "use client";
 
 interface PropertySpecificationFormProps {
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onNext: () => void;
   onBack: () => void;
 }
 
 export default function PropertySpecificationForm({
+  formData,
+  updateFormData,
   onNext,
   onBack,
 }: PropertySpecificationFormProps) {
+  
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -32,10 +37,14 @@ export default function PropertySpecificationForm({
           </label>
 
           <input
-            type="number"
-            placeholder="120"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.landArea}
+  onChange={(e) =>
+    updateFormData("landArea", e.target.value)
+  }
+  placeholder="120"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
         </div>
 
         <div>
@@ -44,10 +53,14 @@ export default function PropertySpecificationForm({
           </label>
 
           <input
-            type="number"
-            placeholder="90"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.buildingArea}
+  onChange={(e) =>
+    updateFormData("buildingArea", e.target.value)
+  }
+  placeholder="90"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
         </div>
 
         <div>
@@ -56,10 +69,14 @@ export default function PropertySpecificationForm({
           </label>
 
           <input
-            type="number"
-            placeholder="3"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.bedroom}
+  onChange={(e) =>
+    updateFormData("bedroom", e.target.value)
+  }
+  placeholder="3"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
         </div>
 
         <div>
@@ -68,10 +85,14 @@ export default function PropertySpecificationForm({
           </label>
 
           <input
-            type="number"
-            placeholder="2"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.bathroom}
+  onChange={(e) =>
+    updateFormData("bathroom", e.target.value)
+  }
+  placeholder="2"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
         </div>
 
         <div>
@@ -80,11 +101,14 @@ export default function PropertySpecificationForm({
           </label>
 
           <input
-            type="number"
-            placeholder="2"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
-        </div>
+  type="number"
+  value={formData.floor}
+  onChange={(e) =>
+    updateFormData("floor", e.target.value)
+  }
+  placeholder="2"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
 
         <div>
           <label className="mb-2 block font-semibold text-slate-700">
@@ -103,19 +127,23 @@ export default function PropertySpecificationForm({
             Legalitas
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-
-            <option>SHM</option>
-            <option>SHGB</option>
-            <option>AJB</option>
-            <option>PPJB</option>
-            <option>Girik</option>
-            <option>Letter C</option>
-            <option>HGU</option>
-            <option>Hak Pakai</option>
-            <option>Lainnya</option>
-
-          </select>
+          <select
+  value={formData.legal}
+  onChange={(e) =>
+    updateFormData("legal", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4 text-slate-700"
+>
+  <option value="">Pilih Legalitas</option>
+  <option value="SHM">SHM</option>
+  <option value="SHGB">SHGB</option>
+  <option value="AJB">AJB</option>
+  <option value="Girik">Girik</option>
+  <option value="Letter C">Letter C</option>
+  <option value="HGU">HGU</option>
+  <option value="Hak Pakai">Hak Pakai</option>
+  <option value="Lainnya">Lainnya</option>
+</select>
         </div>
 
         <div>
