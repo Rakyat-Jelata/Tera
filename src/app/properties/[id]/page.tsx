@@ -6,6 +6,7 @@ import PropertyDescription from "@/components/property/PropertyDescription";
 import PropertyAgentCard from "@/components/property/PropertyAgentCard";
 import PropertyMap from "@/components/property/PropertyMap";
 import PropertyFacilities from "@/components/property/PropertyFacilities";
+import PropertySimilar from "@/components/property/PropertySimilar";
 
 const properties = [
   {
