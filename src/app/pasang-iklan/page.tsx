@@ -45,6 +45,8 @@ pricingNotes: "",
   floor: "",
   legal: "",
 
+    buildingCondition: "",
+
   facilities: [] as string[],
 
   images: [] as File[],
