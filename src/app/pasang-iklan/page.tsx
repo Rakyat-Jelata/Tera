@@ -16,7 +16,39 @@ import PropertyPublish from "@/components/listing/PropertyPublish";
 export default function PasangIklanPage() {
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+  title: "",
+  category: "",
+  propertyType: "",
+  transaction: "",
+  price: "",
 
+  province: "",
+  city: "",
+  district: "",
+  village: "",
+  address: "",
+
+  landArea: "",
+  buildingArea: "",
+  bedroom: "",
+  bathroom: "",
+  floor: "",
+  legal: "",
+
+  facilities: [] as string[],
+
+  images: [] as File[],
+
+  video: null as File | null,
+
+  seoTitle: "",
+  seoDescription: "",
+  seoKeywords: "",
+
+  aiDescription: "",
+});
+  
   const nextStep = () => {
     setCurrentStep((prev) => Math.min(prev + 1, 11));
   };
@@ -25,6 +57,16 @@ export default function PasangIklanPage() {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
+  const updateFormData = (
+  field: string,
+  value: any
+) => {
+  setFormData((prev) => ({
+    ...prev,
+    [field]: value,
+  }));
+};
+  
   return (
     <main className="min-h-screen bg-slate-100 py-10">
 
