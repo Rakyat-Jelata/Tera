@@ -4,14 +4,23 @@ interface PropertyPublishProps {
   formData: any;
   updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onPublish?: () => void;
 }
 
 export default function PropertyPublish({
   formData,
-  updateFormData,
   onBack,
+  onPublish,
 }: PropertyPublishProps) {
-  
+
+  const location = [
+    formData.address,
+    formData.city,
+    formData.province,
+  ]
+    .filter(Boolean)
+    .join(", ");
+
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -26,14 +35,80 @@ export default function PropertyPublish({
         </h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-          Semua data properti telah berhasil dilengkapi.
-          Periksa kembali jika diperlukan, kemudian klik tombol
-          <strong> Publish Listing</strong> untuk menerbitkan iklan Anda di TERAVIA.
+          Periksa kembali data iklan sebelum diterbitkan ke TERAVIA.
         </p>
 
       </div>
 
-      <div className="mt-10 rounded-3xl border border-cyan-200 bg-cyan-50 p-8">
+
+      {/* Ringkasan Data */}
+      <div className="mt-10 rounded-3xl bg-slate-50 p-6">
+
+        <h3 className="text-xl font-bold text-slate-900">
+          Ringkasan Listing
+        </h3>
+
+
+        <div className="mt-5 space-y-3 text-slate-700">
+
+          <p>
+            Judul:
+            <strong className="ml-2">
+              {formData.title || "-"}
+            </strong>
+          </p>
+
+
+          <p>
+            Kategori:
+            <strong className="ml-2">
+              {formData.category || "-"}
+            </strong>
+          </p>
+
+
+          <p>
+            Jenis Properti:
+            <strong className="ml-2">
+              {formData.propertyType || "-"}
+            </strong>
+          </p>
+
+
+          <p>
+            Harga:
+            <strong className="ml-2">
+              {formData.price
+                ? `Rp ${Number(formData.price).toLocaleString("id-ID")}`
+                : "-"
+              }
+            </strong>
+          </p>
+
+
+          <p>
+            Lokasi:
+            <strong className="ml-2">
+              {location || "Belum lengkap"}
+            </strong>
+          </p>
+
+
+          <p>
+            Foto:
+            <strong className="ml-2">
+              {formData.images?.length || 0} Foto
+            </strong>
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      {/* Checklist */}
+      <div className="mt-8 rounded-3xl border border-cyan-200 bg-cyan-50 p-8">
 
         <h3 className="text-xl font-bold text-cyan-700">
           ✔ Checklist
@@ -56,6 +131,8 @@ export default function PropertyPublish({
 
       </div>
 
+
+
       <div className="mt-10 flex justify-between">
 
         <button
@@ -65,7 +142,9 @@ export default function PropertyPublish({
           ← Kembali
         </button>
 
+
         <button
+          onClick={onPublish}
           className="rounded-2xl bg-green-600 px-10 py-4 font-bold text-white transition hover:bg-green-700"
         >
           🚀 Publish Listing
