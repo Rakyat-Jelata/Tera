@@ -1,88 +1,97 @@
 "use client";
 
 interface PropertySEOFormProps {
-  onNext: () => void;
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onNext: () => void;
 }
 
 export default function PropertySEOForm({
-  onNext,
+  formData,
+  updateFormData,
   onBack,
+  onNext,
 }: PropertySEOFormProps) {
+
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
       <div className="mb-8">
 
         <h2 className="text-2xl font-bold text-slate-900">
-          SEO & Tag Listing
+          SEO Properti
         </h2>
 
         <p className="mt-2 text-slate-500">
-          Tambahkan kata kunci agar properti lebih mudah ditemukan di pencarian TERAVIA maupun Google.
+          Optimalkan iklan agar lebih mudah ditemukan di Google dan mesin pencari.
         </p>
 
       </div>
 
-      <div className="grid gap-6">
+      <div className="space-y-6">
+
+        {/* SEO Title */}
 
         <div>
 
           <label className="mb-2 block font-semibold text-slate-700">
-            Meta Title
+            SEO Title
           </label>
 
           <input
             type="text"
-            placeholder="Rumah Minimalis Modern Bogor Dekat Tol"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+            value={formData.seoTitle}
+            onChange={(e) =>
+              updateFormData("seoTitle", e.target.value)
+            }
+            placeholder="Rumah Minimalis Dijual di Bogor"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
           />
 
         </div>
 
+        {/* SEO Description */}
+
         <div>
 
           <label className="mb-2 block font-semibold text-slate-700">
-            Meta Description
+            SEO Description
           </label>
 
           <textarea
-            rows={4}
-            placeholder="Deskripsi singkat yang akan muncul di hasil pencarian Google..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+            rows={5}
+            value={formData.seoDescription}
+            onChange={(e) =>
+              updateFormData("seoDescription", e.target.value)
+            }
+            placeholder="Deskripsi singkat yang akan tampil di hasil pencarian Google..."
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
           />
 
         </div>
 
+        {/* SEO Keywords */}
+
         <div>
 
           <label className="mb-2 block font-semibold text-slate-700">
-            Keyword
+            SEO Keywords
           </label>
 
           <input
             type="text"
-            placeholder="rumah bogor, rumah minimalis, dekat tol, jual rumah"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+            value={formData.seoKeywords}
+            onChange={(e) =>
+              updateFormData("seoKeywords", e.target.value)
+            }
+            placeholder="rumah bogor, rumah murah, rumah minimalis"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
           />
 
           <p className="mt-2 text-sm text-slate-500">
-            Pisahkan setiap keyword menggunakan tanda koma (,).
+            Pisahkan setiap keyword dengan tanda koma (,)
           </p>
-
-        </div>
-
-        <div>
-
-          <label className="mb-2 block font-semibold text-slate-700">
-            URL Slug
-          </label>
-
-          <input
-            type="text"
-            placeholder="rumah-minimalis-modern-bogor"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
 
         </div>
 
