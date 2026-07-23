@@ -130,6 +130,10 @@ export default async function PropertyDetailPage({
 />
   </div>
 
+  <PropertySimilar
+  properties={properties.filter((item) => item.id !== property.id)}
+/>
+
   <PropertyAgentCard />
 
 </div>
