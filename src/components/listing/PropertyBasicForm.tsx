@@ -1,6 +1,13 @@
 "use client";
 
-export default function PropertyBasicForm() {
+interface PropertyBasicFormProps {
+  onNext: () => void;
+}
+
+export default function PropertyBasicForm({
+  onNext,
+}: PropertyBasicFormProps) {
+  
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -122,10 +129,11 @@ export default function PropertyBasicForm() {
       <div className="mt-10 flex justify-end">
 
         <button
-          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Simpan & Lanjut →
-        </button>
+  onClick={onNext}
+  className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+>
+  Simpan & Lanjut →
+</button>
 
       </div>
 
