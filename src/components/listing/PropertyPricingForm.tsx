@@ -1,14 +1,19 @@
 "use client";
 
 interface PropertyPricingFormProps {
-  onNext: () => void;
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onNext: () => void;
 }
 
 export default function PropertyPricingForm({
-  onNext,
+  formData,
+  updateFormData,
   onBack,
+  onNext,
 }: PropertyPricingFormProps) {
+  
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -32,10 +37,14 @@ export default function PropertyPricingForm({
           </label>
 
           <input
-            type="number"
-            placeholder="850000000"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.price}
+  onChange={(e) =>
+    updateFormData("price", e.target.value)
+  }
+  placeholder="850000000"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
         </div>
 
         <div>
@@ -44,10 +53,14 @@ export default function PropertyPricingForm({
           </label>
 
           <input
-            type="number"
-            placeholder="7083333"
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
-          />
+  type="number"
+  value={formData.pricePerMeter}
+  onChange={(e) =>
+    updateFormData("pricePerMeter", e.target.value)
+  }
+  placeholder="7500000"
+  className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
+/>
         </div>
 
         <div>
@@ -55,10 +68,13 @@ export default function PropertyPricingForm({
             Nego
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-            <option>Bisa Nego</option>
-            <option>Harga Pas</option>
-          </select>
+          <input
+  type="checkbox"
+  checked={formData.negotiable}
+  onChange={(e) =>
+    updateFormData("negotiable", e.target.checked)
+  }
+/>
         </div>
 
         <div>
@@ -112,22 +128,23 @@ export default function PropertyPricingForm({
 
       <div className="mt-10 flex justify-between">
 
-        <button
-          onClick={onBack}
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
-        >
-          ← Kembali
-        </button>
+        <div className="mt-10 flex justify-between">
 
-        <button
-          onClick={onNext}
-          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Simpan & Lanjut →
-        </button>
+  <button
+    onClick={onBack}
+    className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+  >
+    ← Kembali
+  </button>
 
-      </div>
+  <button
+    onClick={onNext}
+    className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+  >
+    Simpan & Lanjut →
+  </button>
 
+</div>
     </section>
   );
 }
