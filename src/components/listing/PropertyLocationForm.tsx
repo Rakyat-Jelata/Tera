@@ -1,6 +1,15 @@
 "use client";
 
-export default function PropertyLocationForm() {
+interface PropertyLocationFormProps {
+  onNext: () => void;
+  onBack: () => void;
+}
+
+export default function PropertyLocationForm({
+  onNext,
+  onBack,
+}: PropertyLocationFormProps) {
+  
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -144,17 +153,18 @@ export default function PropertyLocationForm() {
       <div className="mt-10 flex justify-between">
 
         <button
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
-        >
-          ← Kembali
-        </button>
+  onClick={onBack}
+  className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
+>
+  ← Kembali
+</button>
 
         <button
-          className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Simpan & Lanjut →
-        </button>
-
+  onClick={onNext}
+  className="rounded-2xl bg-cyan-600 px-8 py-4 font-semibold text-white transition hover:bg-cyan-700"
+>
+  Simpan & Lanjut →
+</button>
       </div>
 
     </section>
