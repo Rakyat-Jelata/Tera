@@ -1,14 +1,27 @@
 "use client";
 
 interface PropertyVideoUploadProps {
-  onNext: () => void;
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onNext: () => void;
 }
 
 export default function PropertyVideoUpload({
-  onNext,
+  formData,
+  updateFormData,
   onBack,
+  onNext,
 }: PropertyVideoUploadProps) {
+
+  const handleVideoChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!e.target.files?.length) return;
+
+    updateFormData("video", e.target.files[0]);
+  };
+
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
@@ -19,13 +32,15 @@ export default function PropertyVideoUpload({
         </h2>
 
         <p className="mt-2 text-slate-500">
-          Tambahkan video atau virtual tour untuk meningkatkan daya tarik iklan.
-          Langkah ini bersifat opsional.
+          Tambahkan video atau virtual tour untuk meningkatkan daya tarik
+          iklan. Langkah ini bersifat opsional.
         </p>
 
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
+
+        {/* Upload Video */}
 
         <div>
 
@@ -34,16 +49,47 @@ export default function PropertyVideoUpload({
           </label>
 
           <input
+            id="property-video"
             type="file"
             accept="video/*"
-            className="w-full rounded-2xl border border-slate-300 p-4"
+            onChange={handleVideoChange}
+            className="hidden"
           />
 
-          <p className="mt-2 text-sm text-slate-500">
-            Format: MP4, MOV, WEBM • Maksimal 200 MB
-          </p>
+          <label
+            htmlFor="property-video"
+            className="block cursor-pointer rounded-2xl border-2 border-dashed border-cyan-400 p-10 text-center transition hover:bg-cyan-50"
+          >
+
+            <div className="text-lg font-semibold">
+              Upload Video Properti
+            </div>
+
+            <p className="mt-2 text-slate-500">
+              MP4, MOV, WEBM • Maksimal 200 MB
+            </p>
+
+          </label>
+
+          {formData.video && (
+
+            <div className="mt-4 rounded-xl bg-green-50 p-4">
+
+              <p className="font-semibold text-green-700">
+                Video dipilih
+              </p>
+
+              <p className="text-sm text-slate-600">
+                {formData.video.name}
+              </p>
+
+            </div>
+
+          )}
 
         </div>
+
+        {/* YouTube */}
 
         <div>
 
@@ -53,22 +99,32 @@ export default function PropertyVideoUpload({
 
           <input
             type="url"
+            value={formData.youtubeUrl}
+            onChange={(e) =>
+              updateFormData("youtubeUrl", e.target.value)
+            }
             placeholder="https://youtube.com/..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
           />
 
         </div>
 
+        {/* Virtual Tour */}
+
         <div>
 
           <label className="mb-2 block font-semibold text-slate-700">
-            Link Virtual Tour (Matterport / Kuula / 360°)
+            Link Virtual Tour
           </label>
 
           <input
             type="url"
+            value={formData.virtualTourUrl}
+            onChange={(e) =>
+              updateFormData("virtualTourUrl", e.target.value)
+            }
             placeholder="https://..."
-            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+            className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
           />
 
         </div>
@@ -95,4 +151,4 @@ export default function PropertyVideoUpload({
 
     </section>
   );
-}
+            }
