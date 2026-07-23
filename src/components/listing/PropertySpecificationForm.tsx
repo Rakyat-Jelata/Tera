@@ -109,7 +109,7 @@ export default function PropertySpecificationForm({
   placeholder="2"
   className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-cyan-500"
 />
-
+</div>
         <div>
           <label className="mb-2 block font-semibold text-slate-700">
             Tahun Dibangun
@@ -151,13 +151,18 @@ export default function PropertySpecificationForm({
             Kondisi Bangunan
           </label>
 
-          <select className="w-full rounded-2xl border border-slate-300 p-4">
-
-            <option>Baru</option>
-            <option>Bekas</option>
-            <option>Renovasi</option>
-
-          </select>
+          <select
+  value={formData.buildingCondition}
+  onChange={(e) =>
+    updateFormData("buildingCondition", e.target.value)
+  }
+  className="w-full rounded-2xl border border-slate-300 p-4"
+>
+  <option value="">Pilih Kondisi</option>
+  <option value="Baru">Baru</option>
+  <option value="Bekas">Bekas</option>
+  <option value="Renovasi">Renovasi</option>
+</select>
         </div>
 
       </div>
