@@ -17,50 +17,71 @@ export default function PasangIklanPage() {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
+
+  // Informasi Dasar
   title: "",
   category: "",
   propertyType: "",
-  transaction: "",
+  transactionType: "",
+
+  // Harga
   price: "",
-  shortDescription: "",
   pricePerMeter: "",
-negotiable: false,
-serviceCharge: "",
-annualTax: "",
-ownershipStatus: "",
-propertyTaxStatus: "",
-buildingPermit: "",
-pricingNotes: "",
-    
+  negotiable: false,
+  serviceCharge: "",
+  annualTax: "",
+  pricingNotes: "",
+
+
+  // Lokasi
   province: "",
   city: "",
   district: "",
   village: "",
   address: "",
 
+
+  // Spesifikasi
   landArea: "",
   buildingArea: "",
-  bedroom: "",
-  bathroom: "",
+  bedrooms: "",
+  bathrooms: "",
   floor: "",
-  legal: "",
 
-    buildingCondition: "",
+  buildingCondition: "",
 
+
+  // Legalitas
+  certificate: "",
+  ownershipStatus: "",
+  propertyTaxStatus: "",
+  buildingPermit: "",
+
+
+  // Fasilitas
   facilities: [] as string[],
 
+
+  // Media
   images: [] as File[],
-
   video: null as File | null,
+  youtubeUrl: "",
+  virtualTourUrl: "",
 
-youtubeUrl: "",
-virtualTourUrl: "",
 
+  // SEO
   seoTitle: "",
   seoDescription: "",
   seoKeywords: "",
-    
+
+
+  // AI
   aiDescription: "",
+
+
+  // Deskripsi
+  shortDescription: "",
+
 });
   
   const nextStep = () => {
