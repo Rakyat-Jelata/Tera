@@ -1,47 +1,70 @@
 "use client";
 
 interface PropertyAIDescriptionProps {
-  onNext: () => void;
+  formData: any;
+  updateFormData: (field: string, value: any) => void;
   onBack: () => void;
+  onNext: () => void;
 }
 
 export default function PropertyAIDescription({
-  onNext,
+  formData,
+  updateFormData,
   onBack,
+  onNext,
 }: PropertyAIDescriptionProps) {
+
+  const generateDescription = () => {
+
+    const description = `
+${formData.title}
+
+Kategori : ${formData.category}
+Tipe : ${formData.propertyType}
+Transaksi : ${formData.transaction}
+
+Lokasi :
+${formData.address}
+
+Luas Tanah : ${formData.landArea} m²
+Luas Bangunan : ${formData.buildingArea} m²
+
+Kamar Tidur : ${formData.bedroom}
+Kamar Mandi : ${formData.bathroom}
+
+Harga :
+Rp ${formData.price}
+
+Properti ini sangat cocok bagi Anda yang mencari hunian maupun investasi dengan lokasi strategis, akses mudah, serta lingkungan yang nyaman.
+
+Hubungi kami sekarang untuk informasi lebih lanjut ataupun jadwal survey lokasi.
+`;
+
+    updateFormData("aiDescription", description.trim());
+
+  };
+
   return (
     <section className="rounded-3xl bg-white p-8 shadow-lg">
 
       <div className="mb-8">
 
         <h2 className="text-2xl font-bold text-slate-900">
-          AI Description Generator
+          AI Description
         </h2>
 
         <p className="mt-2 text-slate-500">
-          Biarkan AI membantu membuat deskripsi properti yang profesional dan menarik.
+          Generate deskripsi iklan otomatis berdasarkan data yang telah Anda isi.
         </p>
 
       </div>
 
-      <div className="rounded-3xl border border-cyan-200 bg-cyan-50 p-8">
-
-        <h3 className="text-xl font-bold text-cyan-700">
-          🤖 TERAVIA AI Assistant
-        </h3>
-
-        <p className="mt-3 text-slate-600">
-          AI akan membuat deskripsi berdasarkan informasi yang telah Anda isi
-          pada langkah sebelumnya.
-        </p>
-
-        <button
-          className="mt-6 rounded-2xl bg-cyan-600 px-6 py-3 font-semibold text-white transition hover:bg-cyan-700"
-        >
-          Generate Deskripsi AI
-        </button>
-
-      </div>
+      <button
+        onClick={generateDescription}
+        className="rounded-2xl bg-violet-600 px-8 py-4 font-semibold text-white transition hover:bg-violet-700"
+      >
+        🤖 Generate Deskripsi AI
+      </button>
 
       <div className="mt-8">
 
@@ -50,9 +73,13 @@ export default function PropertyAIDescription({
         </label>
 
         <textarea
-          rows={12}
-          placeholder="Hasil generate AI akan muncul di sini..."
-          className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-cyan-500"
+          rows={14}
+          value={formData.aiDescription}
+          onChange={(e) =>
+            updateFormData("aiDescription", e.target.value)
+          }
+          placeholder="Hasil AI akan muncul di sini..."
+          className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
         />
 
       </div>
