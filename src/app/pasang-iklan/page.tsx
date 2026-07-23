@@ -57,6 +57,7 @@ export default function PasangIklanPage() {
  buildingOrientation: "",
  garage: "",
  carport: "",
+ otherFacilities: "",
 
   buildingCondition: "",
 
