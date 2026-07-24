@@ -13,13 +13,31 @@ import PropertyAIDescription from "@/components/listing/PropertyAIDescription";
 import PropertyPreview from "@/components/listing/PropertyPreview";
 import PropertyPublish from "@/components/listing/PropertyPublish";
 import { uploadPropertyImages } from "@/services/storage.service";
-import { saveDraft, savePropertyImages,} from "@/services/property.service"; 
+import { saveDraft, savePropertyImages, publishProperty,} from "@/services/property.service";
 
 export default function PasangIklanPage() {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
+  const [propertyId, setPropertyId] = useState<string | null>(null);
+  const property = await saveDraft(formData); setPropertyId(property.id);
 
+  const handlePublish = async () => {
+  if (!propertyId) {
+    alert("Draft belum disimpan.");
+    return;
+  }
+
+  try {
+    await publishProperty(propertyId);
+
+    alert("Listing berhasil dipublikasikan.");
+  } catch (err) {
+    console.error(err);
+    alert("Publish gagal.");
+  }
+};
+  
   // Informasi Dasar
   title: "",
   category: "",
@@ -254,7 +272,7 @@ export default function PasangIklanPage() {
   formData={formData}
   updateFormData={updateFormData}
   onBack={prevStep}
-  onSaveDraft={handleSaveDraft}
+  onPublish={handlePublish}
 />
   )}
 
