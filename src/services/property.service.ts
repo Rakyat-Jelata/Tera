@@ -57,6 +57,22 @@ export async function saveDraft(formData: any) {
 
   if (error) throw error;
     }
+
+  export async function publishProperty(id: string) {
+  const { data, error } = await supabase
+    .from("properties")
+    .update({
+      status: "published",
+      published_at: new Date().toISOString(),
+    })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+  }
   
     .select()
     .single();
