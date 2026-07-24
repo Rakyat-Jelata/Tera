@@ -1,6 +1,14 @@
 "use client";
 
-export default function PropertyStickyContact() {
+interface PropertyStickyContactProps {
+  phone: string;
+}
+
+export default function PropertyStickyContact({
+  phone,
+}: PropertyStickyContactProps) {
+  const whatsapp = phone.replace(/\D/g, "");
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/95 p-4 shadow-2xl backdrop-blur lg:hidden">
 
@@ -12,17 +20,20 @@ export default function PropertyStickyContact() {
           ❤️
         </button>
 
-        <button
-          className="flex-1 rounded-2xl border border-cyan-300 bg-cyan-50 font-semibold text-cyan-700 transition hover:bg-cyan-100"
+        <a
+          href={`tel:${phone}`}
+          className="flex flex-1 items-center justify-center rounded-2xl border border-cyan-300 bg-cyan-50 font-semibold text-cyan-700 transition hover:bg-cyan-100"
         >
           📞 Telepon
-        </button>
+        </a>
 
-        <button
-          className="flex-1 rounded-2xl bg-green-600 font-semibold text-white transition hover:bg-green-700"
+        <a
+          href={`https://wa.me/${whatsapp}`}
+          target="_blank"
+          className="flex flex-1 items-center justify-center rounded-2xl bg-green-600 font-semibold text-white transition hover:bg-green-700"
         >
           💬 WhatsApp
-        </button>
+        </a>
 
       </div>
 
