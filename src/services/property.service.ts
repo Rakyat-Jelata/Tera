@@ -1,5 +1,8 @@
 import { supabase } from "@/lib/supabase";
 
+/* ===========================
+   SIMPAN DRAFT
+=========================== */
 export async function saveDraft(formData: any) {
   const { data, error } = await supabase
     .from("properties")
@@ -40,8 +43,18 @@ export async function saveDraft(formData: any) {
         status: "draft",
       },
     ])
+    .select()
+    .single();
 
-    export async function savePropertyImages(
+  if (error) throw error;
+
+  return data;
+}
+
+/* ===========================
+   SIMPAN FOTO
+=========================== */
+export async function savePropertyImages(
   propertyId: string,
   imageUrls: string[]
 ) {
@@ -56,9 +69,12 @@ export async function saveDraft(formData: any) {
     .insert(rows);
 
   if (error) throw error;
-    }
+}
 
-  export async function publishProperty(id: string) {
+/* ===========================
+   PUBLISH LISTING
+=========================== */
+export async function publishProperty(id: string) {
   const { data, error } = await supabase
     .from("properties")
     .update({
@@ -66,14 +82,6 @@ export async function saveDraft(formData: any) {
       published_at: new Date().toISOString(),
     })
     .eq("id", id)
-    .select()
-    .single();
-
-  if (error) throw error;
-
-  return data;
-  }
-  
     .select()
     .single();
 
