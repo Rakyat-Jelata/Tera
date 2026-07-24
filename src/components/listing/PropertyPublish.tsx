@@ -4,14 +4,13 @@ interface PropertyPublishProps {
   formData: any;
   updateFormData: (field: string, value: any) => void;
   onBack: () => void;
-  onPublish?: () => void;
+  onPublish: () => void;
 }
 
 export default function PropertyPublish({
-  formData,
   onBack,
   onPublish,
-}: PropertyPublishProps) {
+}: PropertyPublishProps)
 
   const location = [
     formData.address,
@@ -144,11 +143,11 @@ export default function PropertyPublish({
 
 
         <button
-          onClick={onPublish}
-          className="rounded-2xl bg-green-600 px-10 py-4 font-bold text-white transition hover:bg-green-700"
-        >
-          🚀 Publish Listing
-        </button>
+  onClick={onPublish}
+  className="rounded-2xl bg-green-600 px-10 py-4 font-bold text-white transition hover:bg-green-700"
+>
+  🚀 Publish Listing
+</button>
 
       </div>
 
