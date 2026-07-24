@@ -1,8 +1,10 @@
 "use client";
+
 import { useState } from "react";
+
 import PropertyStepper from "@/components/listing/PropertyStepper";
-import PropertyLocationForm from "@/components/listing/PropertyLocationForm";
 import PropertyBasicForm from "@/components/listing/PropertyBasicForm";
+import PropertyLocationForm from "@/components/listing/PropertyLocationForm";
 import PropertySpecificationForm from "@/components/listing/PropertySpecificationForm";
 import PropertyFacilitiesForm from "@/components/listing/PropertyFacilitiesForm";
 import PropertyPricingForm from "@/components/listing/PropertyPricingForm";
@@ -12,274 +14,240 @@ import PropertySEOForm from "@/components/listing/PropertySEOForm";
 import PropertyAIDescription from "@/components/listing/PropertyAIDescription";
 import PropertyPreview from "@/components/listing/PropertyPreview";
 import PropertyPublish from "@/components/listing/PropertyPublish";
+
+import {
+  saveDraft,
+  savePropertyImages,
+  publishProperty,
+} from "@/services/property.service";
+
 import { uploadPropertyImages } from "@/services/storage.service";
-import { saveDraft, savePropertyImages, publishProperty,} from "@/services/property.service";
 
 export default function PasangIklanPage() {
-
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+
   const [propertyId, setPropertyId] = useState<string | null>(null);
-  const property = await saveDraft(formData); setPropertyId(property.id);
 
-  const handlePublish = async () => {
-  if (!propertyId) {
-    alert("Draft belum disimpan.");
-    return;
-  }
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    propertyType: "",
+    transaction: "",
 
-  try {
-    await publishProperty(propertyId);
+    price: "",
+    pricePerMeter: "",
+    negotiable: false,
+    serviceCharge: "",
+    annualTax: "",
+    pricingNotes: "",
 
-    alert("Listing berhasil dipublikasikan.");
-  } catch (err) {
-    console.error(err);
-    alert("Publish gagal.");
-  }
-};
-  
-  // Informasi Dasar
-  title: "",
-  category: "",
-  propertyType: "",
-  transactionType: "",
+    province: "",
+    city: "",
+    district: "",
+    village: "",
+    address: "",
 
-  // Harga
-  price: "",
-  pricePerMeter: "",
-  negotiable: false,
-  serviceCharge: "",
-  annualTax: "",
-  pricingNotes: "",
+    landArea: "",
+    buildingArea: "",
+    bedroom: "",
+    bathroom: "",
+    floor: "",
 
+    legal: "",
+    buildingCondition: "",
 
-  // Lokasi
-  province: "",
-  city: "",
-  district: "",
-  village: "",
-  address: "",
-  postalCode: "",
-  googleMapsUrl: "",
-  latitude: "",
-  longitude: "",
+    facilities: [] as string[],
 
+    images: [] as File[],
+    video: null as File | null,
+    youtubeUrl: "",
+    virtualTourUrl: "",
 
-  // Spesifikasi
-  landArea: "",
-  buildingArea: "",
-  bedrooms: "",
-  bathrooms: "",
-  floor: "",
- buildYear: "",
- electricity: "",
- waterSource: "",
- buildingOrientation: "",
- garage: "",
- carport: "",
- 
+    seoTitle: "",
+    seoDescription: "",
+    seoKeywords: "",
 
-  buildingCondition: "",
+    aiDescription: "",
+    shortDescription: "",
+  });
 
+  const updateFormData = (field: string, value: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
-  // Legalitas
-  certificate: "",
-  ownershipStatus: "",
-  propertyTaxStatus: "",
-  buildingPermit: "",
-
-
-  // Fasilitas
-  facilities: [] as string[],
-  otherFacilities: "",
-
-  // Media
-  images: [] as File[],
-  video: null as File | null,
-  youtubeUrl: "",
-  virtualTourUrl: "",
-
-
-  // SEO
-  seoTitle: "",
-  seoDescription: "",
-  seoKeywords: "",
-
-
-  // AI
-  aiDescription: "",
-
-
-  // Deskripsi
-  shortDescription: "",
-
-});
-  
-  const nextStep = () => {
+  const nextStep = () =>
     setCurrentStep((prev) => Math.min(prev + 1, 11));
-  };
 
-  const prevStep = () => {
+  const prevStep = () =>
     setCurrentStep((prev) => Math.max(prev - 1, 1));
-  };
-
-  const updateFormData = (
-  field: string,
-  value: any
-) => {
-  setFormData((prev) => ({
-    ...prev,
-    [field]: value,
-  }));
-};
 
   const handleSaveDraft = async () => {
-  try {
-    const draft = await saveDraft(formData);
+    try {
+      const property = await saveDraft(formData);
 
-    if (formData.images.length > 0) {
-      const urls = await uploadPropertyImages(
-        formData.images
-      );
+      setPropertyId(property.id);
 
-      await savePropertyImages(
-        draft.id,
-        urls
-      );
+      if (formData.images.length > 0) {
+        const urls = await uploadPropertyImages(formData.images);
+
+        await savePropertyImages(property.id, urls);
+      }
+
+      alert("Draft berhasil disimpan.");
+    } catch (err) {
+      console.error(err);
+      alert("Gagal menyimpan draft.");
     }
+  };
 
-    alert("Draft berhasil disimpan.");
+  const handlePublish = async () => {
+    try {
+      let id = propertyId;
 
-  } catch (err) {
-    console.error(err);
+      if (!id) {
+        const property = await saveDraft(formData);
 
-    alert("Gagal menyimpan draft.");
-  }
-};
-  
+        id = property.id;
+
+        setPropertyId(id);
+
+        if (formData.images.length > 0) {
+          const urls = await uploadPropertyImages(formData.images);
+
+          await savePropertyImages(id, urls);
+        }
+      }
+
+      await publishProperty(id);
+
+      alert("Listing berhasil dipublikasikan.");
+    } catch (err) {
+      console.error(err);
+      alert("Publish gagal.");
+    }
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 py-10">
-
       <div className="mx-auto max-w-7xl px-6">
-
         <div className="mb-8">
+          <h1 className="text-4xl font-extrabold text-slate-900">
+            Pasang Iklan Properti
+          </h1>
 
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-950">
-  Pasang Iklan Properti
-</h1>
-
-<p className="mt-3 text-lg leading-8 text-slate-700">
-  Isi informasi properti Anda dengan lengkap agar lebih cepat ditemukan calon pembeli maupun penyewa.
-</p>
-
+          <p className="mt-3 text-lg text-slate-700">
+            Isi informasi properti secara lengkap agar lebih mudah ditemukan
+            calon pembeli maupun penyewa.
+          </p>
         </div>
 
         <PropertyStepper currentStep={currentStep} />
 
         <div className="mt-8">
 
-  {currentStep === 1 && (
-    <PropertyBasicForm
-  formData={formData}
-  updateFormData={updateFormData}
-  onNext={nextStep}
-/>
-  )}
+          {currentStep === 1 && (
+            <PropertyBasicForm
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 2 && (
-    <PropertyLocationForm
-  formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-/>
-  )}
+          {currentStep === 2 && (
+            <PropertyLocationForm
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 3 && (
-    <PropertySpecificationForm
-  formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-/>
-  )}
+          {currentStep === 3 && (
+            <PropertySpecificationForm
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 4 && (
-    <PropertyFacilitiesForm
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 4 && (
+            <PropertyFacilitiesForm
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 5 && (
-    <PropertyPricingForm
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 5 && (
+            <PropertyPricingForm
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 6 && (
-    <PropertyImageUpload
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 6 && (
+            <PropertyImageUpload
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 7 && (
-    <PropertyVideoUpload
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 7 && (
+            <PropertyVideoUpload
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 8 && (
-    <PropertySEOForm
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 8 && (
+            <PropertySEOForm
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 9 && (
-    <PropertyAIDescription
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 9 && (
+            <PropertyAIDescription
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 10 && (
-    <PropertyPreview
-      formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onNext={nextStep}
-    />
-  )}
+          {currentStep === 10 && (
+            <PropertyPreview
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onNext={nextStep}
+            />
+          )}
 
-  {currentStep === 11 && (
-    <PropertyPublish
-  formData={formData}
-  updateFormData={updateFormData}
-  onBack={prevStep}
-  onPublish={handlePublish}
-/>
-  )}
+          {currentStep === 11 && (
+            <PropertyPublish
+              formData={formData}
+              updateFormData={updateFormData}
+              onBack={prevStep}
+              onPublish={handlePublish}
+            />
+          )}
 
-</div>
-
+        </div>
       </div>
-
     </main>
   );
 }
