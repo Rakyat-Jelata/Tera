@@ -12,7 +12,8 @@ import PropertySEOForm from "@/components/listing/PropertySEOForm";
 import PropertyAIDescription from "@/components/listing/PropertyAIDescription";
 import PropertyPreview from "@/components/listing/PropertyPreview";
 import PropertyPublish from "@/components/listing/PropertyPublish";
-import { saveDraft } from "@/services/property.service";
+import { uploadPropertyImages } from "@/services/storage.service";
+import { saveDraft, savePropertyImages,} from "@/services/property.service"; 
 
 export default function PasangIklanPage() {
 
@@ -112,6 +113,30 @@ export default function PasangIklanPage() {
     ...prev,
     [field]: value,
   }));
+};
+
+  const handleSaveDraft = async () => {
+  try {
+    const draft = await saveDraft(formData);
+
+    if (formData.images.length > 0) {
+      const urls = await uploadPropertyImages(
+        formData.images
+      );
+
+      await savePropertyImages(
+        draft.id,
+        urls
+      );
+    }
+
+    alert("Draft berhasil disimpan.");
+
+  } catch (err) {
+    console.error(err);
+
+    alert("Gagal menyimpan draft.");
+  }
 };
   
   return (
