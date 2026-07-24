@@ -10,7 +10,7 @@ interface PropertyPublishProps {
 export default function PropertyPublish({
   onBack,
   onPublish,
-}: PropertyPublishProps)
+}: PropertyPublishProps) {
 
   const location = [
     formData.address,
