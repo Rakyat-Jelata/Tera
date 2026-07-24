@@ -1,4 +1,8 @@
-import Link from "next/link";  
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { supabase } from "@/lib/supabase";
+
 import PropertyGallery from "@/components/property/PropertyGallery";
 import PropertySummary from "@/components/property/PropertySummary";
 import PropertySpecification from "@/components/property/PropertySpecification";
@@ -9,58 +13,6 @@ import PropertyFacilities from "@/components/property/PropertyFacilities";
 import PropertySimilar from "@/components/property/PropertySimilar";
 import PropertyStickyContact from "@/components/property/PropertyStickyContact";
 
-const properties = [
-  {
-    id: 1,
-    title: "Rumah Minimalis Modern",
-    location: "Bogor, Jawa Barat",
-    price: "Rp 850 Juta",
-    image:
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200",
-    bedroom: 3,
-    bathroom: 2,
-    land: 120,
-    building: 90,
-    facilities: [
-  "Carport",
-  "Garasi",
-  "Taman",
-  "Dapur",
-  "Ruang Keluarga",
-  "Balkon",
-  "PDAM",
-  "Listrik 2200 VA",
-  "Internet Fiber",
-  "Security 24 Jam",
-],
-    description:
-      "Rumah minimalis modern dengan desain nyaman dan lokasi strategis.",
-  },
-  {
-    id: 2,
-    title: "Villa View Gunung",
-    location: "Puncak, Bogor",
-    price: "Rp 2,8 Miliar",
-    image:
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
-    bedroom: 4,
-    bathroom: 3,
-    land: 300,
-    building: 220,
-    facilities: [
-    "Private Pool",
-    "Gazebo",
-    "BBQ Area",
-    "Garden",
-    "Mountain View",
-    "WiFi",
-    "Parking Area",
-  ],
-    description:
-      "Villa dengan pemandangan gunung dan suasana sejuk.",
-  },
-];
-
 export default async function PropertyDetailPage({
   params,
 }: {
@@ -68,30 +20,66 @@ export default async function PropertyDetailPage({
     id: string;
   };
 }) {
-  const property = properties.find(
-    (item) => item.id === Number(params.id)
-  );
+  const { data: property, error } = await supabase
+    .from("properties")
+    .select(`
+      *,
+      property_images(
+        image_url,
+        sort_order
+      )
+    `)
+    .eq("id", params.id)
+    .eq("status", "published")
+    .single();
 
-  if (!property) {
-    return (
-      <main className="min-h-screen bg-slate-100 p-10">
-        <h1 className="text-3xl font-bold">
-          Properti tidak ditemukan
-        </h1>
-
-        <Link
-          href="/properties"
-          className="mt-5 inline-block rounded-xl bg-cyan-600 px-5 py-3 text-white"
-        >
-          Kembali ke Listing
-        </Link>
-      </main>
-    );
+  if (error || !property) {
+    notFound();
   }
+
+  const { data: similar } = await supabase
+    .from("properties")
+    .select(`
+      *,
+      property_images(
+        image_url
+      )
+    `)
+    .eq("status", "published")
+    .neq("id", params.id)
+    .limit(4);
+
+  const gallery =
+    property.property_images?.map(
+      (item: any) => item.image_url
+    ) ?? [];
+
+  const similarProperties =
+    (similar ?? []).map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      location: [
+        item.city,
+        item.province,
+      ]
+        .filter(Boolean)
+        .join(", "),
+      price: item.price
+        ? `Rp ${Number(item.price).toLocaleString("id-ID")}`
+        : "-",
+      image:
+        item.property_images?.[0]?.image_url ??
+        "/images/no-image.jpg",
+      bedroom: Number(item.bedroom ?? 0),
+      bathroom: Number(item.bathroom ?? 0),
+      land: Number(item.land_area ?? 0),
+      building: Number(item.building_area ?? 0),
+      badge: "featured",
+    }));
 
   return (
     <main className="min-h-screen bg-slate-100 px-6 py-10">
-      
+
       <div className="mx-auto max-w-6xl">
 
         <Link
@@ -101,45 +89,71 @@ export default async function PropertyDetailPage({
           ← Kembali ke Listing
         </Link>
 
-        <PropertyGallery />
+        <PropertyGallery
+          images={gallery}
+        />
 
-<PropertySummary
-  price={property.price}
-/>
+        <PropertySummary
+          title={property.title}
+          location={[
+            property.address,
+            property.city,
+            property.province,
+          ]
+            .filter(Boolean)
+            .join(", ")}
+          price={`Rp ${Number(property.price).toLocaleString("id-ID")}`}
+        />
 
-<div className="mt-8 grid gap-8 lg:grid-cols-[2fr_380px]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[2fr_380px]">
 
-  <div>
+          <div>
 
-    <PropertySpecification
-      bedroom={property.bedroom}
-      bathroom={property.bathroom}
-      land={property.land}
-      building={property.building}
-    />
+            <PropertySpecification
+              bedroom={property.bedroom}
+              bathroom={property.bathroom}
+              land={property.land_area}
+              building={property.building_area}
+            />
 
-    <PropertyDescription
-      description={property.description}
-    />
+            <PropertyDescription
+              description={
+                property.ai_description ||
+                property.short_description ||
+                "-"
+              }
+            />
 
-    <PropertyMap
-      location={property.location}
-    />
+            <PropertyMap
+              location={[
+                property.address,
+                property.city,
+                property.province,
+              ]
+                .filter(Boolean)
+                .join(", ")}
+            />
 
-    <PropertyFacilities
-  facilities={property.facilities}
-/>
-  </div>
+            <PropertyFacilities
+              facilities={
+                property.facilities ?? []
+              }
+            />
 
-  <PropertyAgentCard />
+          </div>
 
-</div>
+          <PropertyAgentCard />
 
-          <PropertySimilar
-  properties={properties.filter((item) => item.id !== property.id)}
-/>
-</div>
+        </div>
+
+        <PropertySimilar
+          properties={similarProperties}
+        />
+
+      </div>
+
       <PropertyStickyContact />
-</main>
+
+    </main>
   );
-}
+        }
