@@ -12,6 +12,7 @@ import PropertySEOForm from "@/components/listing/PropertySEOForm";
 import PropertyAIDescription from "@/components/listing/PropertyAIDescription";
 import PropertyPreview from "@/components/listing/PropertyPreview";
 import PropertyPublish from "@/components/listing/PropertyPublish";
+import { saveDraft } from "@/services/property.service";
 
 export default function PasangIklanPage() {
 
@@ -228,6 +229,7 @@ export default function PasangIklanPage() {
   formData={formData}
   updateFormData={updateFormData}
   onBack={prevStep}
+  onSaveDraft={handleSaveDraft}
 />
   )}
 
