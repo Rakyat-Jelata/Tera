@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { supabase } from "@/lib/supabase";
+import { deleteProperty } from "@/services/property.service";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -13,10 +15,10 @@ export default function DashboardPage() {
   const [properties, setProperties] = useState<any[]>([]);
 
   useEffect(() => {
-    checkSession();
+    loadDashboard();
   }, []);
 
-  async function checkSession() {
+  async function loadDashboard() {
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -44,18 +46,24 @@ export default function DashboardPage() {
   }
 
   async function handleDelete(id: string) {
-    const ok = confirm("Hapus listing ini?");
+    const ok = confirm(
+      "Yakin ingin menghapus listing ini?"
+    );
 
     if (!ok) return;
 
-    await supabase
-      .from("properties")
-      .delete()
-      .eq("id", id);
+    try {
+      await deleteProperty(id);
 
-    setProperties((prev) =>
-      prev.filter((item) => item.id !== id)
-    );
+      setProperties((prev) =>
+        prev.filter((item) => item.id !== id)
+      );
+
+      alert("Listing berhasil dihapus.");
+    } catch (err) {
+      console.error(err);
+      alert("Gagal menghapus listing.");
+    }
   }
 
   if (loading) {
@@ -66,12 +74,22 @@ export default function DashboardPage() {
     );
   }
 
+  const total = properties.length;
+
+  const published = properties.filter(
+    (p) => p.status === "published"
+  ).length;
+
+  const draft = properties.filter(
+    (p) => p.status === "draft"
+  ).length;
+
   return (
     <main className="min-h-screen bg-slate-100">
 
       <div className="mx-auto max-w-7xl px-6 py-10">
 
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
 
           <div>
 
@@ -96,7 +114,7 @@ export default function DashboardPage() {
 
             <button
               onClick={handleLogout}
-              className="rounded-2xl border border-slate-300 px-6 py-3 font-semibold hover:bg-slate-200"
+              className="rounded-2xl border border-slate-300 px-6 py-3 hover:bg-slate-200"
             >
               Logout
             </button>
@@ -114,7 +132,7 @@ export default function DashboardPage() {
             </p>
 
             <h2 className="mt-3 text-5xl font-black text-cyan-600">
-              {properties.length}
+              {total}
             </h2>
 
           </div>
@@ -126,11 +144,7 @@ export default function DashboardPage() {
             </p>
 
             <h2 className="mt-3 text-5xl font-black text-green-600">
-              {
-                properties.filter(
-                  (p) => p.status === "published"
-                ).length
-              }
+              {published}
             </h2>
 
           </div>
@@ -142,18 +156,14 @@ export default function DashboardPage() {
             </p>
 
             <h2 className="mt-3 text-5xl font-black text-orange-500">
-              {
-                properties.filter(
-                  (p) => p.status === "draft"
-                ).length
-              }
+              {draft}
             </h2>
 
           </div>
 
         </div>
 
-        <div className="mt-10 rounded-3xl bg-white shadow">
+        <div className="mt-10 overflow-hidden rounded-3xl bg-white shadow">
 
           <div className="border-b p-6">
 
@@ -165,7 +175,7 @@ export default function DashboardPage() {
 
           {properties.length === 0 ? (
 
-            <div className="p-10 text-center text-slate-500">
+            <div className="p-12 text-center text-slate-500">
               Belum ada listing.
             </div>
 
@@ -177,16 +187,16 @@ export default function DashboardPage() {
 
                 <div
                   key={item.id}
-                  className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between"
+                  className="flex flex-col gap-5 p-6 lg:flex-row lg:items-center lg:justify-between"
                 >
 
                   <div>
 
-                    <h3 className="text-xl font-bold">
+                    <h3 className="text-2xl font-bold">
                       {item.title}
                     </h3>
 
-                    <p className="mt-1 text-slate-500">
+                    <p className="mt-2 text-slate-500">
                       {item.city}
                     </p>
 
@@ -197,9 +207,19 @@ export default function DashboardPage() {
                       )}
                     </p>
 
+                    <span
+                      className={`mt-3 inline-block rounded-full px-3 py-1 text-sm font-semibold ${
+                        item.status === "published"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-orange-100 text-orange-700"
+                      }`}
+                    >
+                      {item.status}
+                    </span>
+
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex flex-wrap gap-3">
 
                     <Link
                       href={`/properties/${item.id}`}
@@ -240,4 +260,4 @@ export default function DashboardPage() {
 
     </main>
   );
-              }
+}
