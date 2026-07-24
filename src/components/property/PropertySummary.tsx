@@ -1,74 +1,127 @@
-interface PropertySummaryProps {
-  title: string;
-  location: string;
-  price: string;
-  negotiable?: boolean;
+import Link from "next/link";
+import Image from "next/image";
+
+interface PropertySimilarProps {
+  properties: {
+    id: string | number;
+    title: string;
+    location: string;
+    price: string;
+    image: string;
+    bedroom: number;
+    bathroom: number;
+    land: number;
+    building: number;
+    badge?: "featured" | "new" | "hot" | "sale" | "rent" | "sold";
+  }[];
 }
 
-export default function PropertySummary({
-  title,
-  location,
-  price,
-  negotiable = false,
-}: PropertySummaryProps) {
+export default function PropertySimilar({
+  properties,
+}: PropertySimilarProps) {
+  if (properties.length === 0) {
+    return (
+      <section className="mt-8 rounded-3xl bg-white p-8 shadow-lg">
+
+        <h2 className="text-2xl font-bold text-slate-900">
+          Properti Serupa
+        </h2>
+
+        <p className="mt-6 text-slate-500">
+          Belum ada properti serupa.
+        </p>
+
+      </section>
+    );
+  }
+
   return (
-    <section className="rounded-3xl bg-white p-8 shadow-lg">
+    <section className="mt-8 rounded-3xl bg-white p-8 shadow-lg">
 
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <div className="mb-8">
 
-        <div className="flex-1">
+        <h2 className="text-2xl font-bold text-slate-900">
+          Properti Serupa
+        </h2>
 
-          <span className="inline-flex rounded-full bg-cyan-100 px-4 py-2 text-sm font-semibold text-cyan-700">
-            Properti Dijual
-          </span>
+        <p className="mt-2 text-slate-500">
+          Rekomendasi properti lain yang mungkin Anda sukai.
+        </p>
 
-          <h1 className="mt-5 text-4xl font-black leading-tight text-slate-900">
-            {title}
-          </h1>
+      </div>
 
-          <p className="mt-3 text-lg text-slate-600">
-            📍 {location}
-          </p>
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
 
-          <div className="mt-8">
+        {properties.map((item) => (
 
-            <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-              Harga
-            </p>
+          <article
+            key={item.id}
+            className="group overflow-hidden rounded-3xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300 hover:shadow-2xl"
+          >
 
-            <h2 className="mt-2 text-4xl font-black text-cyan-600">
-              {price}
-            </h2>
+            <div className="relative h-56 overflow-hidden">
 
-            <p className="mt-2 text-slate-500">
-              {negotiable
-                ? "Harga masih bisa dinegosiasikan."
-                : "Harga sesuai yang tercantum pada listing."}
-            </p>
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+              />
 
-          </div>
+              {item.badge && (
+                <div className="absolute left-4 top-4 rounded-full bg-cyan-600 px-3 py-1 text-xs font-bold uppercase text-white">
+                  {item.badge}
+                </div>
+              )}
 
-        </div>
+            </div>
 
-        <div className="flex w-full flex-col gap-3 lg:w-72">
+            <div className="p-6">
 
-          <button className="rounded-2xl bg-green-600 px-6 py-4 font-bold text-white transition hover:bg-green-700">
-            💬 Chat WhatsApp
-          </button>
+              <h3 className="line-clamp-2 text-lg font-bold text-slate-900">
+                {item.title}
+              </h3>
 
-          <button className="rounded-2xl bg-cyan-600 px-6 py-4 font-bold text-white transition hover:bg-cyan-700">
-            📞 Hubungi Penjual
-          </button>
+              <p className="mt-2 text-sm text-slate-500">
+                📍 {item.location}
+              </p>
 
-          <button className="rounded-2xl border border-slate-300 px-6 py-4 font-semibold text-slate-700 transition hover:bg-slate-100">
-            ❤️ Simpan Favorit
-          </button>
+              <h4 className="mt-4 text-2xl font-extrabold text-cyan-600">
+                {item.price}
+              </h4>
 
-          <button className="rounded-2xl border border-slate-300 px-6 py-4 font-semibold text-slate-700 transition hover:bg-slate-100">
-            🔗 Bagikan Listing
-          </button>
+              <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-slate-600">
 
-        </div>
+                <div>
+                  🛏️ {item.bedroom} KT
+                </div>
+
+                <div>
+                  🚿 {item.bathroom} KM
+                </div>
+
+                <div>
+                  🌳 {item.land} m²
+                </div>
+
+                <div>
+                  🏠 {item.building} m²
+                </div>
+
+              </div>
+
+              <Link
+                href={`/properties/${item.id}`}
+                className="mt-6 block rounded-2xl bg-cyan-600 py-3 text-center font-semibold text-white transition hover:bg-cyan-700"
+              >
+                Lihat Detail
+              </Link>
+
+            </div>
+
+          </article>
+
+        ))}
 
       </div>
 
