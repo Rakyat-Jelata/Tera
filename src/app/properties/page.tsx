@@ -21,6 +21,8 @@ type Property = {
   bathroom: number;
   land: number;
   building: number;
+  latitude: number;
+  longitude: number;
   badge?: "featured" | "new" | "hot" | "sold" | "rent" | "sale";
 };
 
@@ -79,6 +81,10 @@ export default function PropertiesPage() {
 
           building: Number(item.building_area ?? 0),
 
+          latitude: Number(item.latitude ?? 0),
+
+          longitude: Number(item.longitude ?? 0),
+          
           badge: "featured",
         }));
 
