@@ -8,6 +8,7 @@ interface PropertyPublishProps {
 }
 
 export default function PropertyPublish({
+  formData,
   onBack,
   onPublish,
 }: PropertyPublishProps) {
@@ -143,10 +144,11 @@ export default function PropertyPublish({
 
 
         <button
-  onClick={onPublish}
-  className="rounded-2xl bg-green-600 px-10 py-4 font-bold text-white transition hover:bg-green-700"
+  onClick={handlePublish}
+  disabled={loading}
+  className="rounded-2xl bg-green-600 px-10 py-4 font-bold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60"
 >
-  🚀 Publish Listing
+  {loading ? "⏳ Publishing..." : "🚀 Publish Listing"}
 </button>
 
       </div>
