@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { generatePropertyDescription } from "@/services/ai.service";
+
 interface PropertyAIDescriptionProps {
   formData: any;
   updateFormData: (field: string, value: any) => void;
@@ -13,37 +16,27 @@ export default function PropertyAIDescription({
   onBack,
   onNext,
 }: PropertyAIDescriptionProps) {
+  const [loading, setLoading] = useState(false);
 
-  const generateDescription = () => {
+  const handleGenerate = async () => {
+    try {
+      setLoading(true);
 
-    const description = `
-${formData.title}
+      const description = await generatePropertyDescription(
+        formData
+      );
 
-Kategori : ${formData.category}
-Tipe Properti : ${formData.propertyType}
-Jenis Transaksi : ${formData.transaction}
+      updateFormData(
+        "aiDescription",
+        description
+      );
+    } catch (err) {
+      console.error(err);
 
-📍 Lokasi
-${formData.address}
-
-Spesifikasi Properti
-• Luas Tanah : ${formData.landArea} m²
-• Luas Bangunan : ${formData.buildingArea} m²
-• Kamar Tidur : ${formData.bedroom}
-• Kamar Mandi : ${formData.bathroom}
-• Legalitas : ${formData.legal}
-
-Harga
-Rp ${formData.price}
-
-${formData.shortDescription}
-
-Properti ini sangat cocok bagi Anda yang sedang mencari hunian nyaman maupun investasi yang menjanjikan. Memiliki lokasi strategis, akses mudah, lingkungan yang nyaman serta nilai investasi yang terus berkembang.
-
-Segera hubungi kami sekarang juga untuk mendapatkan informasi lengkap maupun menjadwalkan survey lokasi.
-`;
-
-    updateFormData("aiDescription", description.trim());
+      alert("Generate AI gagal.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,23 +48,26 @@ Segera hubungi kami sekarang juga untuk mendapatkan informasi lengkap maupun men
           AI Description
         </h2>
 
-        <p className="mt-2 text-slate-600">
-          Generate deskripsi iklan secara otomatis berdasarkan data yang telah Anda isi.
+        <p className="mt-2 text-slate-500">
+          Buat deskripsi iklan otomatis menggunakan AI berdasarkan data properti yang telah Anda isi.
         </p>
 
       </div>
 
       <button
         type="button"
-        onClick={generateDescription}
-        className="rounded-2xl bg-violet-600 px-8 py-4 font-semibold text-white transition hover:bg-violet-700"
+        onClick={handleGenerate}
+        disabled={loading}
+        className="rounded-2xl bg-violet-600 px-6 py-4 font-semibold text-white transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        🤖 Generate Deskripsi AI
+        {loading
+          ? "⏳ Sedang Generate..."
+          : "🤖 Generate Deskripsi AI"}
       </button>
 
       <div className="mt-8">
 
-        <label className="mb-2 block font-semibold text-slate-900">
+        <label className="mb-2 block font-semibold text-slate-700">
           Hasil Deskripsi
         </label>
 
@@ -79,25 +75,14 @@ Segera hubungi kami sekarang juga untuk mendapatkan informasi lengkap maupun men
           rows={14}
           value={formData.aiDescription}
           onChange={(e) =>
-            updateFormData("aiDescription", e.target.value)
+            updateFormData(
+              "aiDescription",
+              e.target.value
+            )
           }
-          placeholder="Klik tombol Generate Deskripsi AI..."
-          className="w-full rounded-2xl border border-slate-300 bg-white p-4 text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
+          placeholder="Hasil AI akan muncul di sini..."
+          className="w-full rounded-2xl border border-slate-300 p-4 leading-7 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
         />
-
-      </div>
-
-      <div className="mt-8 rounded-2xl bg-violet-50 p-6">
-
-        <h4 className="font-bold text-slate-900">
-          💡 Tips
-        </h4>
-
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-700">
-          <li>Isi seluruh data properti terlebih dahulu.</li>
-          <li>Semakin lengkap data, semakin baik hasil deskripsi.</li>
-          <li>Deskripsi masih bisa diedit sebelum dipublikasikan.</li>
-        </ul>
 
       </div>
 
@@ -105,7 +90,7 @@ Segera hubungi kami sekarang juga untuk mendapatkan informasi lengkap maupun men
 
         <button
           onClick={onBack}
-          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold text-slate-900 transition hover:bg-slate-100"
+          className="rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100"
         >
           ← Kembali
         </button>
