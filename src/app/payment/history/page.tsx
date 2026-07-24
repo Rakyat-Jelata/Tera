@@ -156,9 +156,16 @@ return (
               className="border-t"  
             >  
 
-              <td className="px-6 py-5 font-medium">  
-                {item.order_id}  
-              </td>  
+              <td className="px-6 py-5 font-medium">
+
+  <Link
+    href={`/payment/history/${item.id}`}
+    className="text-cyan-600 hover:underline"
+  >
+    {item.order_id}
+  </Link>
+
+</td>
 
               <td className="px-6 py-5">  
                 {item.membership_plans?.name}  
