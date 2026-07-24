@@ -54,6 +54,7 @@ export async function saveDraft(formData: any) {
 /* ===========================
    SIMPAN FOTO
 =========================== */
+
 export async function savePropertyImages(
   propertyId: string,
   imageUrls: string[]
@@ -72,8 +73,9 @@ export async function savePropertyImages(
 }
 
 /* ===========================
-   PUBLISH LISTING
+   PUBLISH
 =========================== */
+
 export async function publishProperty(id: string) {
   const { data, error } = await supabase
     .from("properties")
@@ -88,4 +90,48 @@ export async function publishProperty(id: string) {
   if (error) throw error;
 
   return data;
+}
+
+/* ===========================
+   HAPUS LISTING
+=========================== */
+
+export async function deleteProperty(id: string) {
+
+  const { data: images } = await supabase
+    .from("property_images")
+    .select("image_url")
+    .eq("property_id", id);
+
+  if (images && images.length > 0) {
+
+    const files = images
+      .map((img) => {
+
+        const parts = img.image_url.split("/property-images/");
+
+        return parts[1];
+
+      })
+      .filter(Boolean);
+
+    if (files.length > 0) {
+      await supabase.storage
+        .from("property-images")
+        .remove(files);
+    }
+
+    await supabase
+      .from("property_images")
+      .delete()
+      .eq("property_id", id);
+
+  }
+
+  const { error } = await supabase
+    .from("properties")
+    .delete()
+    .eq("id", id);
+
+  if (error) throw error;
 }
