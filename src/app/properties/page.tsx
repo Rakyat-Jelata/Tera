@@ -103,6 +103,10 @@ export default function PropertiesPage() {
 
         <section>
 
+          <PropertyExplorerMap
+  properties={properties}
+/>
+          
           <PropertyToolbar
             total={properties.length}
           />
