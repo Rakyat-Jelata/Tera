@@ -15,6 +15,7 @@ export default function PendingPaymentPage() {
 
   const [payment, setPayment] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [processing, setProcessing] = useState(false);
 
 
 
@@ -30,16 +31,16 @@ export default function PendingPaymentPage() {
 
   async function loadPayment() {
 
-
     const {
       data: {
         session
-      }
+      },
     } = await supabase.auth.getSession();
 
 
 
     if (!session) {
+      setLoading(false);
       return;
     }
 
@@ -55,9 +56,7 @@ export default function PendingPaymentPage() {
 
 
     if (!error) {
-
       setPayment(data);
-
     }
 
 
@@ -65,29 +64,63 @@ export default function PendingPaymentPage() {
 
   }
 
+  async function simulatePayment() {
+
+    setProcessing(true);
 
 
+    const response = await fetch(
+      "/api/payment/simulate",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          payment_id: payment.id,
+        }),
+      }
+    );
+
+
+
+    const result = await response.json();
+
+
+
+    if (result.success) {
+
+      window.location.reload();
+
+    } else {
+
+      alert(
+        result.message ||
+        "Gagal simulasi pembayaran"
+      );
+
+      setProcessing(false);
+
+    }
+
+  }
 
 
   if (loading) {
 
     return (
-
       <main className="min-h-screen flex items-center justify-center">
         Memuat pembayaran...
       </main>
-
     );
 
   }
 
-
-
-
   if (!payment) {
 
     return (
-
       <main className="min-h-screen flex items-center justify-center">
 
         <div>
@@ -95,13 +128,9 @@ export default function PendingPaymentPage() {
         </div>
 
       </main>
-
     );
 
   }
-
-
-
 
   return (
 
@@ -114,15 +143,31 @@ export default function PendingPaymentPage() {
         <div className="rounded-3xl bg-white p-8 shadow-xl">
 
 
+
           <h1 className="text-3xl font-black">
-            Menunggu Pembayaran
+
+            {
+              payment.status === "paid"
+              ?
+              "Pembayaran Berhasil"
+              :
+              "Menunggu Pembayaran"
+            }
+
           </h1>
 
 
           <p className="mt-3 text-slate-600">
-            Silakan selesaikan pembayaran melalui metode berikut.
-          </p>
 
+            {
+              payment.status === "paid"
+              ?
+              "Membership TERAVIA sudah aktif."
+              :
+              "Silakan selesaikan pembayaran melalui metode berikut."
+            }
+
+          </p>
 
 
           <div className="mt-8 rounded-2xl bg-yellow-50 p-5">
@@ -134,14 +179,13 @@ export default function PendingPaymentPage() {
 
 
             <h2 className="mt-1 text-xl font-bold text-yellow-700">
+
               {payment.status.toUpperCase()}
+
             </h2>
 
 
           </div>
-
-
-
 
 
           {payment.payment_type === "bank_transfer" && (
@@ -164,10 +208,6 @@ export default function PendingPaymentPage() {
           )}
 
 
-
-
-
-
           {payment.payment_type === "qris" && (
 
             <div className="mt-6 rounded-2xl border p-5">
@@ -178,24 +218,60 @@ export default function PendingPaymentPage() {
               </h3>
 
 
-              {payment.qris_url ? (
 
-                <img
-                  src={payment.qris_url}
-                  alt="QRIS"
-                  className="mt-4 rounded-xl"
-                />
+              {
+                payment.qris_url
+                ?
+                (
+                  <img
+                    src={payment.qris_url}
+                    alt="QRIS"
+                    className="mt-4 rounded-xl"
+                  />
+                )
+                :
+                (
+                  <p className="mt-3 text-slate-500">
+                    QRIS belum tersedia.
+                  </p>
+                )
 
-              ) : (
+              }
 
-                <p className="mt-3 text-slate-500">
-                  QRIS belum tersedia.
-                </p>
-
-              )}
 
 
             </div>
+
+          )}
+
+
+
+
+
+
+
+          {payment.status === "pending" && (
+
+            <button
+
+              onClick={simulatePayment}
+
+              disabled={processing}
+
+              className="mt-6 w-full rounded-xl bg-green-600 px-6 py-3 font-bold text-white"
+
+            >
+
+              {
+                processing
+                ?
+                "Memproses..."
+                :
+                "Simulasikan Pembayaran"
+              }
+
+
+            </button>
 
           )}
 
@@ -210,7 +286,9 @@ export default function PendingPaymentPage() {
             Order ID:
 
             <span className="ml-2 font-semibold">
+
               {payment.order_id}
+
             </span>
 
 
@@ -221,11 +299,17 @@ export default function PendingPaymentPage() {
 
 
           <Link
+
             href="/payment/history"
+
             className="mt-8 inline-block rounded-xl bg-slate-900 px-6 py-3 font-bold text-white"
+
           >
+
             Kembali ke Riwayat
+
           </Link>
+
 
 
 
