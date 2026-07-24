@@ -40,6 +40,24 @@ export async function saveDraft(formData: any) {
         status: "draft",
       },
     ])
+
+    export async function savePropertyImages(
+  propertyId: string,
+  imageUrls: string[]
+) {
+  const rows = imageUrls.map((url, index) => ({
+    property_id: propertyId,
+    image_url: url,
+    sort_order: index + 1,
+  }));
+
+  const { error } = await supabase
+    .from("property_images")
+    .insert(rows);
+
+  if (error) throw error;
+    }
+  
     .select()
     .single();
 
