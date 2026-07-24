@@ -1,3 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import { supabase } from "@/lib/supabase";
+
 import PropertyHero from "@/components/property/PropertyHero";
 import PropertyFilter from "@/components/property/PropertyFilter";
 import PropertyToolbar from "@/components/property/PropertyToolbar";
@@ -5,7 +11,7 @@ import PropertyGrid from "@/components/property/PropertyGrid";
 import PropertyPagination from "@/components/property/PropertyPagination";
 
 type Property = {
-  id: number | string;
+  id: string;
   title: string;
   location: string;
   price: string;
@@ -17,58 +23,72 @@ type Property = {
   badge?: "featured" | "new" | "hot" | "sold" | "rent" | "sale";
 };
 
-const properties: Property[] = [
-  {
-    id: 1,
-    title: "Rumah Minimalis Modern",
-    location: "Bogor, Jawa Barat",
-    price: "Rp 850 Juta",
-    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800",
-    bedroom: 3,
-    bathroom: 2,
-    land: 120,
-    building: 90,
-    badge: "featured",
-  },
-  {
-    id: 2,
-    title: "Villa View Gunung",
-    location: "Puncak, Bogor",
-    price: "Rp 2,8 Miliar",
-    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800",
-    bedroom: 4,
-    bathroom: 3,
-    land: 300,
-    building: 220,
-    badge: "hot",
-  },
-  {
-    id: 3,
-    title: "Apartemen Premium",
-    location: "Jakarta Selatan",
-    price: "Rp 1,4 Miliar",
-    image: "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800",
-    bedroom: 2,
-    bathroom: 2,
-    land: 90,
-    building: 90,
-    badge: "new",
-  },
-  {
-    id: 4,
-    title: "Ruko Strategis",
-    location: "Bekasi",
-    price: "Rp 2,2 Miliar",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
-    bedroom: 2,
-    bathroom: 2,
-    land: 100,
-    building: 180,
-    badge: "sale",
-  },
-];
-
 export default function PropertiesPage() {
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProperties();
+  }, []);
+
+  async function loadProperties() {
+    try {
+      const { data, error } = await supabase
+        .from("properties")
+        .select(`
+          *,
+          property_images(
+            image_url,
+            sort_order
+          )
+        `)
+        .eq("status", "published")
+        .order("published_at", {
+          ascending: false,
+        });
+
+      if (error) throw error;
+
+      const result: Property[] =
+        (data ?? []).map((item: any) => ({
+          id: item.id,
+
+          title: item.title,
+
+          location: [
+            item.city,
+            item.province,
+          ]
+            .filter(Boolean)
+            .join(", "),
+
+          price: item.price
+            ? `Rp ${Number(item.price).toLocaleString("id-ID")}`
+            : "-",
+
+          image:
+            item.property_images?.[0]?.image_url ??
+            "/images/no-image.jpg",
+
+          bedroom: Number(item.bedroom ?? 0),
+
+          bathroom: Number(item.bathroom ?? 0),
+
+          land: Number(item.land_area ?? 0),
+
+          building: Number(item.building_area ?? 0),
+
+          badge: "featured",
+        }));
+
+      setProperties(result);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-slate-100">
 
@@ -88,9 +108,19 @@ export default function PropertiesPage() {
 
           <div className="mt-6">
 
-            <PropertyGrid
-              properties={properties}
-            />
+            {loading ? (
+
+              <div className="rounded-3xl bg-white p-12 text-center shadow">
+                Memuat data properti...
+              </div>
+
+            ) : (
+
+              <PropertyGrid
+                properties={properties}
+              />
+
+            )}
 
           </div>
 
@@ -98,7 +128,7 @@ export default function PropertiesPage() {
 
             <PropertyPagination
               currentPage={1}
-              totalPages={5}
+              totalPages={1}
             />
 
           </div>
