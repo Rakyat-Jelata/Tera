@@ -9,6 +9,7 @@ import PropertyFilter from "@/components/property/PropertyFilter";
 import PropertyToolbar from "@/components/property/PropertyToolbar";
 import PropertyGrid from "@/components/property/PropertyGrid";
 import PropertyPagination from "@/components/property/PropertyPagination";
+import PropertyExplorerMap from "@/components/property/PropertyExplorerMap";
 
 type Property = {
   id: string;
