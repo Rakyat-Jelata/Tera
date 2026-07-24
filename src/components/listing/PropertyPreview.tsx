@@ -54,7 +54,10 @@ export default function PropertyPreview({
           </p>
 
           <h4 className="mt-6 text-3xl font-extrabold text-cyan-600">
-            Rp {formData.price || "0"}
+            Rp{" "}
+{formData.price
+  ? Number(formData.price).toLocaleString("id-ID")
+  : "0"}
           </h4>
 
           <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -90,7 +93,7 @@ export default function PropertyPreview({
               <p><strong>Transaksi :</strong> {formData.transaction || "-"}</p>
               <p><strong>Legalitas :</strong> {formData.legal || "-"}</p>
               <p><strong>Lantai :</strong> {formData.floor || "-"}</p>
-              <p><strong>Fasilitas :</strong> {formData.facilities.join(", ") || "-"}</p>
+              <p><strong>Fasilitas :</strong> {formData.facilities?.length ? formData.facilities.join(", "): "-"}</p>
 
             </div>
 
